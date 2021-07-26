@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Coffee & Python
+title: Auto Insurance Fraud Detection
 image: "/posts/coffee_python.jpg"
-tags: [Python, Coffee]
+tags: [fraud detection, Logistic Regression, Random Forest]
 ---
 
-# My first project
+# Fraud on Insurance Claims - Classification
 ## is all about
 ### how much
 #### I LOVE
