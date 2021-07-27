@@ -5,20 +5,19 @@ image: "/posts/coffee_python.jpg"
 tags: [fraud detection, Logistic Regression, Random Forest]
 ---
 
-# Fraud on Insurance Claims - Classification
-## Problem Description:
+## Overview of Fraud on Auto Accident Insurance Claims Project
 
-The Covid-19 pandemic has caused the number of drivers on the road to increase and, thus, has resulted in a rise of auto accident claims. Insurance companies are   inundated with these new claims and are in desperate need of a system that could help manage them. If there was a way to automatically generate a preliminary fraud status, it would give employees the ability to focus their immediate attention on the 'predicted' fraud claims and process the claims 'predicated' as non-fraud at a later time. The good news is, there is a such a system available.  With the use of machine learning, claims can be processed through an algorithm and quickly marked as fraud or non-fraud, allowing employees the ability to get ahead of the backlog. 
+### Business Problem:
+The Covid-19 pandemic has caused an increase in the number of drivers on the road, resulting in a rise in auto accident claims. Insurance companies, struggling with vast numbers, are in desperate need of finding a way to manage them. They need a way to quickly determine a preliminary fraud status so their employees can focus their immediate attention on claims that are actually fraudulent and process the non-fraud ones later. 
 
-This type of data science problem is considered a classification problem because it is trying to answer the question of 'how would you <i><b>classify</b></i> this claim?  Fraud or non-fraud? There are many classification algorithms that can be used, but I've limited my research to the Logistic Regression model and the Random Forest for Classification model.
+### Potential Solution:
+Machine learning is a perfect for this kind of problem.  With the use of a high performing algorithm, claims can be quickly perdicted as fraud or non-fraud, allowing employees the ability to get ahead of the backlog.
 
-I will test both models and provide a recommendation based on which one offered the best performance and accuracy.  
+This type of data science problem is considered a classification problem because it is trying to answer the question of 'how would you **classify** this claim? Fraud or non-fraud? There are many classification algorithms that can be used, but I've limited my research to the Logistic Regression model and the Random Forest for Classification model. I will test both and provide a recommendation based on which offered the best performance and accuracy.
 
-### Data Source: 
-insurance_claims.csv
-### Software: 
-- Python 3.7.6
-- Spyder 4.0.0
+## Resources
+- Data Source: [insurance_claims.csv](data/insurance_claims.csv)
+- Software: Python 3.7.6, Spyder 4.0.0
 
 ## Results
 
@@ -244,7 +243,7 @@ I was curious to see information about age, gender, witnesses, and police report
 
 ### Age
 
-![alt text](/img/posts/fraud_prod/graphs/distribution_by_age.png)
+![alt text](img/posts/fraud_prod/graphs/distribution_by_age.png)
 
 The age with the most fraudulent claims appears to be in the mid-to-late 30s, steadily decreasing until around late-50's/early 60's where it bounces back up a little. 
 
