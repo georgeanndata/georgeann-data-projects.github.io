@@ -11,7 +11,7 @@ tags: [fraud detection, Logistic Regression, Random Forest]
 The Covid-19 pandemic has caused an increase in the number of drivers on the road, resulting in a rise in auto accident claims. Insurance companies, struggling with vast numbers, are in desperate need of finding a way to manage them. They need a way to quickly determine a preliminary fraud status so their employees can focus their immediate attention on claims that are actually fraudulent and process the non-fraud ones later. 
 
 ### Potential Solution:
-Machine learning is a perfect for this kind of problem.  With the use of a high performing algorithm, claims can be quickly perdicted as fraud or non-fraud, allowing employees the ability to get ahead of the backlog.
+Machine learning is perfect for this kind of problem.  With the use of a high performing algorithm, claims can be quickly perdicted as fraud or non-fraud, allowing employees the ability to get ahead of the backlog.
 
 This type of data science problem is considered a classification problem because it is trying to answer the question of 'how would you **classify** this claim? Fraud or non-fraud? There are many classification algorithms that can be used, but I've limited my research to the Logistic Regression model and the Random Forest for Classification model. I will test both and provide a recommendation based on which offered the best performance and accuracy.
 
@@ -79,7 +79,7 @@ data_for_model.duplicated().value_counts()
 ```
 ### 3. Incorrect & Irrelevant Data
 
-If information is not known, besides leaving it blank, another character will be entered in its place.  When I looked through the dataset, I found a '?' for some collision types, property damage and police report available columns.  Just like the missing data, you could choose to ignore it, replace it with something else or remove it.  
+If information is not known, besides leaving it blank, another character will sometimes be entered in its place.  When I looked through the dataset, I found a '?' for some collision types, property damage and police report available columns.  Just like the missing data, you could choose to ignore it, replace it with something else or remove it.  
 
 #### 1. collision_type column
 
@@ -87,7 +87,7 @@ The data revealed that for all the claims that contained '?' for collision type,
 
 ![alt text](/img/posts/fraud_prod/ss/collision_type.png)
 
-Additionally, the number of '?' collision type claims were also equal to 18% of the entire dataset, making ignoring or removing them not an option.  I decided to instead replace '?' with None.
+Additionally, the number of '?' collision type claims was equal to 18% of the entire dataset, making ignoring or removing them not an option.  I decided to instead replace '?' with None.
 
 ~~~
 # 3. Incorrect & Irrelevant Data 
@@ -147,7 +147,7 @@ data_for_model['police_report_available'].value_counts()
 
 ### Unique values
 
-If any data is unique to a particular claim, it offers no value.  Querying the dataset, I found a few unique values felt comfortable removing, such as policy_number and incident location.  
+If any data is unique to a particular claim, it offers no value.  Querying the dataset, I found a few unique values and felt comfortable removing, such as policy_number and incident location.  
 
 ![alt text](/img/posts/fraud_prod/ss/unique.png)
 ```
@@ -172,7 +172,7 @@ data_for_model.drop(columns=['policy_state','insured_zip','incident_date',
 ```
 ### Date times
 
-Datetime data can prove to be very useful but needs to be in number format to work with the algorithm. There is a toordinal function that will convert datetime to the Gregorian ordinal of a date which is a number. In this dataset I found the policy_bind_date came in as an object, so I had to change it to a datetime data type and then convert it using the toordinal function.  
+Datetime data can prove to be very useful but needs to be in number format to work with the algorithm. There is a *toordinal* function that will convert datetime to the Gregorian ordinal of a date which is a number. In this dataset I found the policy_bind_date came in as an object, so I had to change it to a datetime data type and then convert it using the toordinal function.  
 
 ```
 ## Check for dates types, non are as datetimes
@@ -250,7 +250,7 @@ The age with the most fraudulent claims appears to be in the mid-to-late 30s, st
 ### Gender
 ![alt text](/img/posts/fraud_prod/graphs/distribution_by_gender.png)
 
-The number of fraud claims by gender is closely evenly split, although females have a hair more.
+The number of fraud claims by gender is close to being evenly split, although females have a hair more.
 
 ### Witnesses
 ![alt text](/img/posts/fraud_prod/graphs/distribution_by_witnesses.png)
@@ -292,7 +292,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, rando
 
 ## Categorical Variables
 
-Algorithms only work with numbers, so categorical variables need to be converted using One Hot Encoding.  In a nutshell, it breaks up the categorical data into its own column and populating the column values with 1 for yes and 0 for no.  For instance, if you have a gender column that is populated with the words Male and Female, you need to use OHE to convert it so it would no longer have a column for gender but would instead have one column for gender_male and one gender_female. Each of these new columns would then have a value of 1 for yes or 0 for no accordingly.  BUT you must remove one of them due to avoid something called multicollinearity.  For this assignment, I have chosen to drop the first instance.
+Algorithms only work with numbers, so categorical variables need to be converted using One Hot Encoding.  In a nutshell, it breaks up the categorical data into its own column and populates the column values with 1 for yes and 0 for no.  For instance, if you have a gender column that is populated with the words Male and Female, you need to use OHE to convert it so it would no longer have a column for gender but would instead have one column for gender_male and one for gender_female. Each of these new columns would then have a value of 1 for yes or 0 for no accordingly.  BUT you must remove one of them due to avoid something called multicollinearity.  For this assignment, I have chosen to drop the first instance.
 
 ```
 # 5. Categorical Variables
@@ -352,7 +352,7 @@ X_test = pd.DataFrame(scale_standared.transform(X_test), columns = X_test.column
 
 ## Feature Selection
 
-Having the optimal amount of features to paramount to the effectiveness of the model.  For the Logistic Regression model I decided to use the Recursive Feature Elimination and Cross-Validation Selection (RFECV) to eliminate the irrelevant features.
+Having the optimal amount of features is paramount to the effectiveness of the model.  For the Logistic Regression model I decided to use the Recursive Feature Elimination and Cross-Validation Selection (RFECV) to eliminate the irrelevant features.
 
 ```
 #####################################################
@@ -407,13 +407,13 @@ clf.fit(X_train_LR, y_train)
 
 **Confusion Matrix**
 
-Generating a confusion matrix, we easily see that the data is imbalanced.  Meaning one of the classes is has a larger amount than the others.  In this case it is the True Negatives.
+Generating a confusion matrix, we easily see that the data is imbalanced.  Meaning one of the classes has a larger amount than the other(s).  In this case it is the True Negatives.
 
  <img src=".//g_images/LR_confusion_matrix_before_optimal_threshold.png"></img>
 
 **Accuracy, Precision, Recall and F1 scores**
 
- Even though the data is imbalaned and needs to be adjusted, I ran the Accuracy, Precision, Recall and F1 scores so we can compare to what they are after making adjustments for the imbalancing. (See below)
+Even though the data is imbalaned and needs to be adjusted, I ran the Accuracy, Precision, Recall and F1 scores so we can compare them to what they are after making adjustments for the imbalancing. (See below)
 
  ```
  ## Accuracy (the number of correct classification out of all attempted classifications)
@@ -438,7 +438,7 @@ print(f"\n Accuracy Score: {accuracy_score_r} \n Precision Score:  {precision_sc
   
   **Optimal Threshold**
   
-  One way to handle imbalancing is to find the optimal threshold and 
+  One way to handle imbalancing is to find the optimal threshold.   
   
    ```
    #####################################################
@@ -492,18 +492,19 @@ AFTER
 
 **Accuracy Score** - The percentage of all predictions that were correct.
 
-The Accuracy Score went down slightly from 80.25 to 78.99%.  If it were not for the fact of the data being imbalanced, those score would indicate a good model. 
+The accuracy score went down slightly from 80.25 to 78.99%.  If it were not for the fact of the data being imbalanced, those score would indicate a good model. Actually any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. We are on the cusp of being excellent, the story of my life. :) 
 
 **Precision** - 
-Of all the claims that were predicted as fraud, how many were actually fraud?
-of all the ones that we predicted as fraud, how many actuall were fraud.
-so if we predicted there were 10, what were the really?
+The precision score of a model is a score given for how well the model did on predicting classes correctly. Using this project as an example, the calculation would be take the total number of correctly predicted fraud claims (the number of times the model predicted a fraud as a fraud) and divide it by the total number of correctly predicted frauds (the number of times the model predicted a fraud as a fraud) + the total number of correctly predicted non-frauds (the number of times the model predicted a non-fraud as a non-fraud). 
 
-A precision score of 100 is optimal.   The precision is intuitively the ability of the classifier not to label as positive a sample that is negative.  To not errorneously lable a negative as a positive.
+Just like in school, a score (grade) of 100 is optimal, but if not, the closer to 100 the better, the closer to 0 the worst. 
 
-The best value is 1 and the worst value is 0.
+Precision is the ratio of correctly predicted positive observations to the total predicted positive observations.
 
 **Recall** - 
+A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again using this project as an example, you would take the total number of correctly predicted fraud claims (the number of times the model predicted a fraud as a fraud) and divide it by the total number of correctly predicted frauds (the number of times the model predicted a fraud as a fraud) + the total number of incorrectly predicted non-frauds (the number of times the model predicted a non-fraud as a fraud). 
+
+
 Of all actual fraud claims, how many did we accurately predict as fraud. 
 
 Look at the actual fraud claims what is the percentage of and tell me how many I accurately predicted as fraud.
