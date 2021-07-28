@@ -243,7 +243,7 @@ I was curious to see information about age, gender, witnesses, and police report
 
 ### Age
 
-![alt text](/img/posts/fraud_prod/graphs/distribution_by_age.png)
+![alt text](/img/posts/fraud_prod/graphs/Distribution_by_age.png)
 
 The age with the most fraudulent claims appears to be in the mid-to-late 30s, steadily decreasing until around late-50's/early 60's where it bounces back up a little. 
 
