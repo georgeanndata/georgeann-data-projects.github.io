@@ -248,18 +248,25 @@ I was curious to see information about age, gender, witnesses, and police report
 The age with the most fraudulent claims appears to be in the mid-to-late 30s, steadily decreasing until around late-50's/early 60's where it bounces back up a little. 
 
 ### Gender
-![alt text](/img/posts/fraud_prod/graphs/distribution_by_gender.png)
-
+<p align="center">
+  <img src="/img/posts/fraud_prod/graphs/2_status_by_gender.png" />
+</p>
 The number of fraud claims by gender is close to being evenly split, although females have a hair more.
 
 ### Witnesses
 ![alt text](/img/posts/fraud_prod/graphs/distribution_by_witnesses.png)
+<p align="center">
+  <img src="/img/posts/fraud_prod/graphs/2_status_by_gender.png" />
+</p>
 
 Surprisingly there seems to be more witnesses when there are fraud claims than not. 
 
 ### Police Report Available
 
 ![alt text](/img/posts/fraud_prod/graphs/Distribution_by_Police_Report_Availability.png)
+<p align="center">
+  <img src="/img/posts/fraud_prod/graphs/2_status_by_gender.png" />
+</p>
 
 Unsurprisingly there are less police reports available for fraud claims than not.  
 
