@@ -251,14 +251,14 @@ The age with the most fraudulent claims appears to be in the mid-to-late 30s, st
 <p align="center">
   <img src="/img/posts/fraud_prod/graphs/2_status_by_gender.png" />
 </p>
-The number of fraud claims by gender is close to being evenly split, although females have a hair more.
+The number of fraud claims by gender is close to being evenly split, although females have a hair more.  Combined betwee fraud and non-faud claims, females seem to have more auto accident claimes than males. So much for putting the age old adage about females not having the best driving skills finally to bed.  
 
 ### Witnesses
 <p align="center">
   <img src="/img/posts/fraud_prod/graphs/status_by_witnesses.png" />
 </p>
 
-Surprisingly there seems to be more witnesses when there are fraud claims than not. 
+Surprisingly, fraud claims are more apt to have witnesses, than not.  
 
 ### Police Report Available
 
@@ -266,7 +266,7 @@ Surprisingly there seems to be more witnesses when there are fraud claims than n
   <img src="/img/posts/fraud_prod/graphs/status_by_Police_Report_Availability.png" />
 </p>
 
-Unsurprisingly there are less police reports available for fraud claims than not.  
+Unsurprisingly, there are less police reports available for fraud claims than not.  
 
 ## Split Input Variables & Output Variables
 
