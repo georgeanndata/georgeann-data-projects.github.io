@@ -58,6 +58,10 @@ The F1 score can be interpreted as a weighted average of the precision and recal
 
 **ROC/AUC**
 
+## Conclusion
+
+## Background
+
 ### Data
 
 The insurance_claims.csv file contains a mixture of 1,000 fraudulent and non-fraudulent insurance claims, 247 and 753 respectively.
@@ -453,6 +457,7 @@ Generating a confusion matrix, we easily see that the data is imbalanced.  Meani
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_before.png)
 
+
 **Accuracy, Precision, Recall and F1 scores**
 
 Even though the data is imbalaned and needs to be adjusted, I ran the Accuracy, Precision, Recall and F1 scores so we can compare them to what they are after making adjustments for the imbalancing. (See below)
@@ -481,7 +486,7 @@ print(f"\n Accuracy Score: {accuracy_score_r} \n Precision Score:  {precision_sc
   
   **Optimal Threshold**
   
-  One way to handle imbalancing is to adjust the threshold.  Finding the **optimal** threshold is paramount to rendering the best results.  
+One way to handle imbalancing is to adjust the threshold. The threshold is the preveriable line in the sand. It is the line between saying a claim is fraud or non-fraud, above the line, yes, below the line no. To go deeper, when the Logisitic Regression model returns a probability score for a claim (which it does for all in the test set), it looks at the threshold amount and asks if the amount above or below this line?  If it is above, it will say it is probabily fraud, if it is below, I will say it is non-fraud. This is why adjusting it will sometimes make the data more balanced. Remember this data is imbalanced with more correctly predicted non-frauds (TN) than correctly predicted frauds (TP) so after we adjust that line, it may help with the imbalace. 
   
    ```
 #####################################################
@@ -489,7 +494,7 @@ print(f"\n Accuracy Score: {accuracy_score_r} \n Precision Score:  {precision_sc
 #####################################################
 
 #map y test 
-y_test_t = y_test.map({'Y': 1, 'N': 0})
+y_test_t = y_test.map({'Y': 1, 'N': 0}).astype(int)
 print(type(y_test_t))
 
 thresholds = np.arange(0, 1, 0.01)
@@ -521,12 +526,12 @@ The optimal threshold is 0.13.
 
  ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_.png)
   
-   
+The default threshold is 0.5, so decreasing it to 0.13 may give us better results.
 
 **Confusion Matrix post threshold**
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_AFTER.png)
- 
+
 
 **The Accuracy, Precision, Recall and F1 scores post threshold**
 
@@ -538,10 +543,10 @@ AFTER
 
 ![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_2.png)
 
+Changing the threshold did not result in better performance numbers, they actually stayed the same.  The reason for this is may be due to the the model having a small test set, I initially did a 80/20 split.  I resplit the dataset with a 60/40 split and see if the model predicted better on the larger test set.  
 
 **Model Assessment with larger test set 
 
-Changing the threshold did not result in better performance numbers.  The reason for this is may be due to the small test set that we have.  I originally split the data, 80 (train) / 20 (test).  I will resplit it to 60/40 and see if the model predicts better on the larger test set.  
 
 ```
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42, stratify = y)##test_size percentage allocated to test_set, random_state = shuffling applied before split
@@ -553,19 +558,19 @@ After the new split, besides re-encoding categorical variables and re-scalling t
 
 The list of the 28 features.
 
-![alt text](/img/posts/fraud_prod/graphs/LR_feature_selection_2.png)
+![alt text](/img/posts/fraud_prod/ss/LR_feature_selection_2.png)
 
 After updating the test and training sets with the 28 optimal features, I refitted and retrained the model and updated the threshold (0.31), hoping for better performance results.
 
---Updated optimal threshold--
+--**Updated optimal threshold**--
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_update_larger_testset.png)
 
---Updated confusion matrix--
+--**Updated confusion matrix**--
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_AFTER_.png)
 
---Updated performance metrics--
+--**Updated performance metrics**--
 
 BEFORE
 
@@ -704,19 +709,7 @@ rfc.fit(X_train_RF, y_train)
 
 <img src=".//g_screenshots/rf_a_p_r_1.png"></img>
 
- **Optimal Threshold**
- 
-The optimal threshold is 0.28. 
-
-<img src=".//g_images/optimal_threshold_Random_Forest.png"></img>
-
-**Confusion Matrix post threshold**
-
-<img src=".//g_images/rf_confusion_matrix_AFTER_threshold.png"></img>
-
-
-
-**The Accuracy, Precision, Recall and F1 scores post threshold**
+**The Accuracy, Precision, Recall and F1 scores**
 
 BEFORE
 
