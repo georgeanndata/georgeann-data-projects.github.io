@@ -414,7 +414,7 @@ clf.fit(X_train_LR, y_train)
 
 **Confusion Matrix**
 
-Generating a confusion matrix, we easily see that the data is imbalanced.  Meaning one of the classes has a larger amount than the other(s).  In this case it is the True Negatives.
+Generating a confusion matrix, we easily see that the data is imbalanced.  Meaning one of the classes has a larger amount than the other(s).  In this case it is the True Non-Frauds (non-frauds predicted correctly as non-frauds), 105 to 28 True Frauds (frauds predicted correctly as frauds).
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_before.png)
 
@@ -492,7 +492,7 @@ As you can see changing the threshold has resulted in lowering the false positiv
 
 BEFORE
 
-<img src=".//g_screenshots/a_p_r_scores_1.png"></img>
+![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_1.png)
   
 AFTER
 
