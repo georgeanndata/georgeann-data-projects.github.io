@@ -416,7 +416,7 @@ clf.fit(X_train_LR, y_train)
 
 Generating a confusion matrix, we easily see that the data is imbalanced.  Meaning one of the classes has a larger amount than the other(s).  In this case it is the True Negatives.
 
-![alt text](/img/posts/fraud_prod/graphs/LR_confusion_matrix_before_optimal_threshold.png)
+![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_before.png)
 
 **Accuracy, Precision, Recall and F1 scores**
 
@@ -425,7 +425,7 @@ Even though the data is imbalaned and needs to be adjusted, I ran the Accuracy, 
  ```
  ## Accuracy (the number of correct classification out of all attempted classifications)
 
-accuracy_score_r = accuracy_score(y_test, y_pred_class)
+accuracy_score_r = accuracy_score(y_pred_class, y_test)
 
 ## Precision (of all observations that were predicted as positive, how many were actually positive)
 precision_score_r = precision_score(y_test, y_pred_class, pos_label='Y')
