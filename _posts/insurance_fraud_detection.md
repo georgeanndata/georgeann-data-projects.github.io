@@ -15,11 +15,7 @@ Machine learning is perfect for this kind of problem.  With the use of a high pe
 
 This type of data science problem is considered a classification problem because it is trying to answer the question of 'how would you **classify** this claim? Fraud or non-fraud? There are many classification algorithms that can be used, but I've limited my research to the Logistic Regression model and the Random Forest for Classification model. I will test both and provide a recommendation based on which offered the best performance and accuracy.
 
-## Resources
-- Data Source: [insurance_claims.csv](data/insurance_claims.csv)
-- Software: Python 3.7.6, Spyder 4.0.0
-
-## Results
+### Results
 
 After assessing both models, I determined that the <> model was the best performing model for determing fraud status.  I based this decision on the performance metrics and roc/auc of both models after determining optimal features and thresholds and evaluating a smaller test trainset (80/20) and a slightly larger one (60/40).  The performance metrics are as follows:
 
@@ -58,9 +54,13 @@ The F1 score can be interpreted as a weighted average of the precision and recal
 
 **ROC/AUC**
 
-## Conclusion
+### Conclusion
 
-## Background
+### Background
+
+### Resources
+- Data Source: [insurance_claims.csv](data/insurance_claims.csv)
+- Software: Python 3.7.6, Spyder 4.0.0
 
 ### Data
 
@@ -290,7 +290,7 @@ Evn thought Non-Frauds just happens to be slightly larger, both Non-Fraud and Fr
 <p align="center">
   <img src="/img/posts/fraud_prod/graphs/2_status_by_gender.png" />
 </p>
-The number of fraud claims by gender is close to being evenly split, although females have a hair more.  All of all auto accident claims, combined fraud and non-faud, females seem to have more auto accident claimes than males. So much for putting the age old adage about females not having the best driving skills to bed.  
+The number of fraud claims by gender is close to being evenly split, although females have a hair more.  All of all auto accident claims, combined fraud and non-faud, females seem to have more auto accident claimes than males. So much for putting to rest the age old adage about females not having the best driving skills.  
 
 ### Witnesses
 <p align="center">
