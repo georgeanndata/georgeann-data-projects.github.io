@@ -534,7 +534,7 @@ The F1 score can be interpreted as a weighted average of the precision and recal
 
 ## Random Forest model
 
-Since using a Logistic Regression model did not result in a good model, the next model I tried was the Random Forest. 
+Since using a Logistic Regression model did not result in a great results, the next model I tried was the Random Forest. 
 
 ```
 ######################################################
@@ -583,7 +583,7 @@ permutation_importance_summary.sort_values(by = "permutation_importance", inplac
 
 The permutation importance feature selection has outlined , the 29 feaures are gra.  Any amount less than 0 was elimnated.  Some with a permuation importance of less than 0. 
 
-![alt text](/img/posts/fraud_prod/graphs/permutation_importance_2.png)
+![alt text](/img/posts/fraud_prod/graphs/permutation_importance_2_.png)
 
 Any feature with a permutation importance amount less than 0 was removed as it doesn't actually improve the importance of the model.  
 
