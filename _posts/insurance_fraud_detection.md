@@ -446,7 +446,7 @@ print(f"\n Accuracy Score: {accuracy_score_r} \n Precision Score:  {precision_sc
   
   **Optimal Threshold**
   
-  One way to handle imbalancing is to adjust the threshold and finding the **optimal** threshold will render the best results.  
+  One way to handle imbalancing is to adjust the threshold.  Finding the **optimal** threshold is paramount to rendering the best results.  
   
    ```
 #####################################################
@@ -500,18 +500,19 @@ AFTER
 
 **Accuracy Score** - The percentage of all predictions that were correct.
 
-The accuracy score went down slightly from 80.25 to 78.99%.  If it were not for the fact of the data being imbalanced, those score would indicate a good model. Actually any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. We are on the cusp of being excellent, the story of my life. :) 
+The accuracy score went down slightly from 80.25 to 78.99%.  If it were not for the fact of the data being imbalanced, those score would indicate a good model. Actually, any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. Again, considering there is a data imbalance, we need to look at Precision, Recall and F1 scores to get a better assessment of the model.
 
 **Precision** - 
-The precision score of a model is a score given for how well the model did on predicting classes correctly. Using this project as an example, the calculation would be take the total number of correctly predicted fraud claims (the number of times the model predicted a fraud as a fraud) and divide it by the total number of correctly predicted frauds (the number of times the model predicted a fraud as a fraud) + the total number of correctly predicted non-frauds (the number of times the model predicted a non-fraud as a non-fraud). 
+The precision score of a model is a score given for how well the model did on predicting classes correctly. Using this project as an example, the calculation would be take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**Total Positive** (TP)) + the total number of times the model INCORRECTLY predicted it was a fraud when it was actually a non-fraud (**False Positive** (FP)). 
+
+![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_1.png)
 
 Just like in school, a score (grade) of 100 is optimal, but if not, the closer to 100 the better, the closer to 0 the worst. 
 
-Precision is the ratio of correctly predicted positive observations to the total predicted positive observations.
-
 **Recall** - 
-A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again using this project as an example, you would take the total number of correctly predicted fraud claims (the number of times the model predicted a fraud as a fraud) and divide it by the total number of correctly predicted frauds (the number of times the model predicted a fraud as a fraud) + the total number of incorrectly predicted non-frauds (the number of times the model predicted a non-fraud as a fraud). 
+A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**Total Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). 
 
+![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_1.png)
 
 Of all actual fraud claims, how many did we accurately predict as fraud. 
 
