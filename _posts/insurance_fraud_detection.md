@@ -21,7 +21,42 @@ This type of data science problem is considered a classification problem because
 
 ## Results
 
-TBC
+After assessing both models, I determined that the <> model was the best performing model for determing fraud status.  I based this decision on the performance metrics and roc/auc of both models after determining optimal features and thresholds and evaluating a smaller test trainset (80/20) and a slightly larger one (60/40).  The performance metrics are as follows:
+
+**Accuracy Score** - The percentage of all predictions that were correct.
+
+
+The accuracy score is at 83%.  If it were not for the fact of the data being imbalanced, those score would indicate a good model. Actually, any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. Again, considering there is a data imbalance, we need to look at Precision, Recall and F1 scores to get a better assessment of the model.
+  F1 Score: 0.6746987951807228
+  
+  Logistic Regression
+  
+  Random Forest
+  
+
+**Precision** - 
+The precision score of a model is a score given for how well the model did on predicting classes correctly. Using this project as an example, the calculation would be take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**Total Positive** (TP)) + the total number of times the model INCORRECTLY predicted it was a fraud when it was actually a non-fraud (**False Positive** (FP)). 
+
+<p align="center">
+  <img src="/img/posts/fraud_prod/ss/precision.png" />
+</p>
+
+Just like in school, a score (grade) of 100 is optimal, but if not, the closer to 100 the better, the closer to 0 the worst. The Logistic Regression model has a presicion score of 62.22% which is good but not great. 
+
+**Recall** - 
+A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**Total Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). 
+
+<p align="center">
+  <img src="/img/posts/fraud_prod/ss/recall.png"  />
+</p>
+
+Any recall score above 50% is good.  Like a precison score, 100 is optimal, closer to 100 is better, closer to 0 is worst.  This model's score is 73.8% which on the surface looks ok but you need to look at the precion score as well.  Taking these two into consideration, it appears because of the low precision socre, it means that very few of our positive predictions are true.  
+
+**F1 score**
+
+The F1 score can be interpreted as a weighted average of the precision and recall, where an F1 score reaches its best value at 1 and worst score at 0. The relative contribution of precision and recall to the F1 score are equal.
+
+**ROC/AUC**
 
 ### Data
 
@@ -490,8 +525,6 @@ The optimal threshold is 0.13.
 
 **Confusion Matrix post threshold**
 
-Changing the threshold did not result in better performan numbers any of the numbers.  The reason for this is the probability values (in the original prediction  are either below or above the threshold of 0.13.  This code above:  ***pred_class = (y_pred_prob >= threshold) * 1*** What this basically means is that we need to validate using Random Forest for Classification to see if it heads better results.
-
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_AFTER.png)
  
 
@@ -504,6 +537,44 @@ BEFORE
 AFTER
 
 ![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_2.png)
+
+
+**Model Assessment with larger test set 
+
+Changing the threshold did not result in better performance numbers.  The reason for this is may be due to the small test set that we have.  I originally split the data, 80 (train) / 20 (test).  I will resplit it to 60/40 and see if the model predicts better on the larger test set.  
+
+```
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42, stratify = y)##test_size percentage allocated to test_set, random_state = shuffling applied before split
+```
+
+After the new split, besides re-encoding categorical variables and re-scalling the features, I reran feature selection. With this larger training set and the optimal features number went from 3 to 28. 
+
+![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_update.png)
+
+The list of the 28 features.
+
+![alt text](/img/posts/fraud_prod/graphs/LR_feature_selection_2.png)
+
+After updating the test and training sets with the 28 optimal features, I refitted and retrained the model and updated the threshold (0.31), hoping for better performance results.
+
+--Updated optimal threshold--
+
+![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_update_larger_testset.png)
+
+--Updated confusion matrix--
+
+![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_AFTER_.png)
+
+--Updated performance metrics--
+
+BEFORE
+
+![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_2.png)
+  
+AFTER
+
+![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_3.png)
+
 
 **Accuracy Score** - The percentage of all predictions that were correct.
   
@@ -532,16 +603,17 @@ Any recall score above 50% is good.  Like a precison score, 100 is optimal, clos
 
 The F1 score can be interpreted as a weighted average of the precision and recall, where an F1 score reaches its best value at 1 and worst score at 0. The relative contribution of precision and recall to the F1 score are equal.
 
+
+########################################################
+
 ## Random Forest model
 
-Since using a Logistic Regression model did not result in a great results, the next model I tried was the Random Forest. 
+Since using a Logistic Regression model did not provide great results, the next model I tried was the Random Forest. 
 
 ```
 ######################################################
 ## Use Random Forest instead
 #####################################################
-### RERUN split, etc above.
-
 
 from sklearn.ensemble import RandomForestClassifier
 rfc = RandomForestClassifier(random_state = 42, n_estimators = 2000)
@@ -565,6 +637,11 @@ feature_importance_summary.sort_values(by="feature_importance", inplace = True)
 
 ![alt text](/img/posts/fraud_prod/graphs/RF_importance_2.png)
 
+Here are the features:
+
+![alt text](/img/posts/fraud_prod/ss/.png)
+
+
 
 **Permutation Importance**
 
@@ -587,35 +664,9 @@ The permutation importance feature selection has outlined , the 29 feaures are g
 
 Any feature with a permutation importance amount less than 0 was removed as it doesn't actually improve the importance of the model.  
 
-policy_csl_500/1000
-property_damage_YES
-bodily_injuries
-policy_bind_date
-incident_severity_Total Loss
-collision_type_Side Collision
-insured_relationship_unmarried
-incident_type_Single Vehicle Collision
-insured_occupation_prof-specialty
-insured_occupation_protective-serv
-insured_education_level_College
-insured_occupation_transport-moving
-insured_occupation_handlers-cleaners
-insured_occupation_machine-op-inspct
-authorities_contacted_None
-authorities_contacted_Fire
-insured_occupation_armed-forces
-police_report_available_YES
-insured_education_level_PhD
-insured_education_level_Masters
-insured_occupation_priv-house-serv
-insured_education_level_High School
-insured_sex_MALE
-number_of_vehicles_involved
-umbrella_limit
-insured_education_level_MD
-insured_occupation_farming-fishing
-insured_relationship_wife
-insured_occupation_craft-repair
+Here are the features:
+
+![alt text](/img/posts/fraud_prod/ss/.png)
 
 
 ## Model Training
