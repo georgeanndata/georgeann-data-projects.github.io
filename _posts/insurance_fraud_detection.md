@@ -416,7 +416,7 @@ clf.fit(X_train_LR, y_train)
 
 Generating a confusion matrix, we easily see that the data is imbalanced.  Meaning one of the classes has a larger amount than the other(s).  In this case it is the True Negatives.
 
- <img src=".//g_images/LR_confusion_matrix_before_optimal_threshold.png"></img>
+ <img src=".//img/posts/fraud_prod/graphs/LR_confusion_matrix_before_optimal_threshold.png"></img>
 
 **Accuracy, Precision, Recall and F1 scores**
 
