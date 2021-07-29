@@ -288,7 +288,7 @@ y = data_for_model["fraud_reported"]
 
 ## Split out Training & Test sets
 
-I split out the training and test splits with a 60/40 split.  The default is an 80/20 split but I decided to do a 60/40 split so I had a larger test set. 
+I split out the training and test splits to the defaulted 80/20 split. I may, depending on the results, resplit it to a 60/40 split so I get a larger test set. 
 
 ```
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42, stratify = y)##test_size percentage allocated to test_set, random_state = shuffling applied before split
