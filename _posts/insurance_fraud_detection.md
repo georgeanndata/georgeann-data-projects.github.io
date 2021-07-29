@@ -347,7 +347,7 @@ X_test.drop(categorical_vars, axis = 1, inplace = True)
 Feature Scaling is to put all the values on the same scale.  I used standard scaling.
 
 ```
-# 6. Feature Scaling ---DO THIS??
+# 6. Feature Scaling
 scale_standared = StandardScaler()
 
 X_train = pd.DataFrame(scale_standared.fit_transform(X_train), columns = X_train.columns)
@@ -505,14 +505,19 @@ The accuracy score went down slightly from 80.25 to 78.99%.  If it were not for 
 **Precision** - 
 The precision score of a model is a score given for how well the model did on predicting classes correctly. Using this project as an example, the calculation would be take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**Total Positive** (TP)) + the total number of times the model INCORRECTLY predicted it was a fraud when it was actually a non-fraud (**False Positive** (FP)). 
 
-![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_1.png)
+<p align="center">
+  <img src="/img/posts/fraud_prod/ss/precision.png" />
+</p>
 
 Just like in school, a score (grade) of 100 is optimal, but if not, the closer to 100 the better, the closer to 0 the worst. 
 
 **Recall** - 
 A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**Total Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). 
 
-![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_1.png)
+<p align="center">
+  <img src="/img/posts/fraud_prod/ss/recall.png"  />
+</p>
+
 
 Of all actual fraud claims, how many did we accurately predict as fraud. 
 
