@@ -490,7 +490,7 @@ The optimal threshold is 0.13.
 
 **Confusion Matrix post threshold**
 
-Changing the threshold did not change any of the numbers.  The reason for this is the probability values (in the original prediction  are either below or above the threshold of 0.13.  This code above:  ***pred_class = (y_pred_prob >= threshold) * 1*** What this basically means is that we need to validate using Random Forest for Classification to see if it heads better results.
+Changing the threshold did not result in better performan numbers any of the numbers.  The reason for this is the probability values (in the original prediction  are either below or above the threshold of 0.13.  This code above:  ***pred_class = (y_pred_prob >= threshold) * 1*** What this basically means is that we need to validate using Random Forest for Classification to see if it heads better results.
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_AFTER.png)
  
