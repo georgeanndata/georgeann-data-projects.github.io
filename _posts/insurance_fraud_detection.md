@@ -446,7 +446,7 @@ print(f"\n Accuracy Score: {accuracy_score_r} \n Precision Score:  {precision_sc
   
   **Optimal Threshold**
   
-  One way to handle imbalancing is to find the optimal threshold.   
+  One way to handle imbalancing is to adjust the threshold and finding the **optimal** threshold will render the best results.  
   
    ```
 #####################################################
