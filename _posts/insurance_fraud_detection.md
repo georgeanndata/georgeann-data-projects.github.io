@@ -377,13 +377,15 @@ optimal_feature_count = feature_selector.n_features_
 print(f"Optimal number of features:  {optimal_feature_count}")
 
 ```
-The optimal number of features is 28. 
+The optimal number of features is 3. 
 
 <img src=".//g_images/LR_optimal_feature_graph.png"></img>
 
 Here are the optimal features:
 
-<img src=".//g_screenshots/clf_opt_features.png"></img>
+incident_severity_Minor Damage
+incident_severity_Total Loss
+incident_severity_Trivial Damage
 
 Update the test and training tests with the above optimal features.
 
@@ -426,14 +428,14 @@ Even though the data is imbalaned and needs to be adjusted, I ran the Accuracy, 
 accuracy_score_r = accuracy_score(y_test, y_pred_class)
 
 ## Precision (of all observations that were predicted as positive, how many were actually positive)
-precision_score_r = precision_score(y_test, y_pred_class)#33/(21+33)
+precision_score_r = precision_score(y_test, y_pred_class, pos_label='Y')
 
 ## Recall (of all positive observations, how many did we predict as positive)
-recall_score_r = recall_score(y_test, y_pred_class)#33/(42+33)
+recall_score_r = recall_score(y_test, y_pred_class, pos_label='Y')
 
 ## F1 score (harmonic mean of precision and recall)
 
-f1_score_r = f1_score(y_test, y_pred_class)
+f1_score_r = f1_score(y_test, y_pred_class, pos_label='Y')
 
 print(f"\n Accuracy Score: {accuracy_score_r} \n Precision Score:  {precision_score_r} \n Recall Score:  {recall_score_r} \n F1 Score: {f1_score_r}")
 
@@ -446,7 +448,7 @@ print(f"\n Accuracy Score: {accuracy_score_r} \n Precision Score:  {precision_sc
   One way to handle imbalancing is to find the optimal threshold.   
   
    ```
-   #####################################################
+#####################################################
 # Finding the optimal threshold
 #####################################################
 
