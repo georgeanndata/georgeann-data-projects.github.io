@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Auto Insurance Fraud Detection
-image: "/posts/coffee_python.jpg"
+image: "/posts/.jpg"
 tags: [fraud detection, Logistic Regression, Random Forest]
 ---
 
