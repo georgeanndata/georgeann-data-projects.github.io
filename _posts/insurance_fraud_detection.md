@@ -453,6 +453,10 @@ print(f"\n Accuracy Score: {accuracy_score_r} \n Precision Score:  {precision_sc
 # Finding the optimal threshold
 #####################################################
 
+#map y test 
+y_test_t = y_test.map({'Y': 1, 'N': 0})
+print(type(y_test_t))
+
 thresholds = np.arange(0, 1, 0.01)
 
 precision_scores = []
@@ -463,27 +467,28 @@ for threshold in thresholds:
     
     pred_class = (y_pred_prob >= threshold) * 1
     
-    precision = precision_score(y_test, pred_class, zero_division = 0)
+    precision = precision_score(y_test_t, pred_class, zero_division = 0)
     precision_scores.append(precision)
     
-    recall = recall_score(y_test, pred_class)
+    recall = recall_score(y_test_t, pred_class)
     recall_scores.append(recall)
     
-    f1 = f1_score(y_test, pred_class)
+    f1 = f1_score(y_test_t, pred_class)
     f1_scores.append(f1)
 
 
 max_f1 = max(f1_scores)
 max_f1_indx = f1_scores.index(max_f1)
+
    ```
 
-The optimal threshold is 0.31. 
+The optimal threshold is 0.13. 
 
    <img src=".//g_images/LR_optimal_threshold.png"></img>
 
 **Confusion Matrix post threshold**
 
-As you can see changing the threshold has resulted in lowering the false positive, from 223 to 206, lowerng false negatives from 42 to 29 but not enough to affect the imbalance.
+Changing the threshold did not change any of the numbers.  The reason for this is the probability values (in the original prediction  are either below or above the threshold of 0.13.  This code above:  ***pred_class = (y_pred_prob >= threshold) * 1*** What this basically means is that we need to validate using Random Forest for Classification to see if it heads better results.
 
  <img src=".//g_images/LR_confusion_matrix_AFTER_optimal_threshold.png"></img>
 
