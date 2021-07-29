@@ -484,14 +484,16 @@ max_f1_indx = f1_scores.index(max_f1)
 
 The optimal threshold is 0.13. 
 
-   <img src=".//g_images/LR_optimal_threshold.png"></img>
+ ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_.png)
+  
+   
 
 **Confusion Matrix post threshold**
 
 Changing the threshold did not change any of the numbers.  The reason for this is the probability values (in the original prediction  are either below or above the threshold of 0.13.  This code above:  ***pred_class = (y_pred_prob >= threshold) * 1*** What this basically means is that we need to validate using Random Forest for Classification to see if it heads better results.
 
- <img src=".//g_images/LR_confusion_matrix_AFTER_optimal_threshold.png"></img>
-
+![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_AFTER.png)
+ 
 
 **The Accuracy, Precision, Recall and F1 scores post threshold**
 
@@ -501,11 +503,12 @@ BEFORE
   
 AFTER
 
-<img src=".//g_screenshots/a_p_r_scores_2.png"></img>
+![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_2.png)
 
 **Accuracy Score** - The percentage of all predictions that were correct.
-
-The accuracy score went down slightly from 80.25 to 78.99%.  If it were not for the fact of the data being imbalanced, those score would indicate a good model. Actually, any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. Again, considering there is a data imbalance, we need to look at Precision, Recall and F1 scores to get a better assessment of the model.
+  
+The accuracy score is at 83%.  If it were not for the fact of the data being imbalanced, those score would indicate a good model. Actually, any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. Again, considering there is a data imbalance, we need to look at Precision, Recall and F1 scores to get a better assessment of the model.
+  F1 Score: 0.6746987951807228
 
 **Precision** - 
 The precision score of a model is a score given for how well the model did on predicting classes correctly. Using this project as an example, the calculation would be take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**Total Positive** (TP)) + the total number of times the model INCORRECTLY predicted it was a fraud when it was actually a non-fraud (**False Positive** (FP)). 
@@ -514,7 +517,7 @@ The precision score of a model is a score given for how well the model did on pr
   <img src="/img/posts/fraud_prod/ss/precision.png" />
 </p>
 
-Just like in school, a score (grade) of 100 is optimal, but if not, the closer to 100 the better, the closer to 0 the worst. 
+Just like in school, a score (grade) of 100 is optimal, but if not, the closer to 100 the better, the closer to 0 the worst. The Logistic Regression model has a presicion score of 62.22% which is good but not great. 
 
 **Recall** - 
 A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**Total Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). 
@@ -523,22 +526,7 @@ A recall score is the converse of precision and if you add to the two together t
   <img src="/img/posts/fraud_prod/ss/recall.png"  />
 </p>
 
-
-Of all actual fraud claims, how many did we accurately predict as fraud. 
-
-Look at the actual fraud claims what is the percentage of and tell me how many I accurately predicted as fraud.
-
-If there were actually 10 fraud claims, how accurately did we predict them? (how many did we say were fraud when they were really fraud)
-
-Any recall score above 50% is good.  
-The recall is intuitively the ability of the classifier to find all the positive samples. The best value is 1 and the worst value is 0.  To accurately find al the positives.
-
-Hence, a situation of Low Precision emerges when very few of your positive predictions are true, and Low Recall occurs if most of your positive values are never predicted.
-
-You can't change the Precision score without it having an affect on the Recall and vice versa.
-
-Precison and Recall scores swapped.  Precision went down and Recall went up. F1 score went up slightly.
-
+Any recall score above 50% is good.  Like a precison score, 100 is optimal, closer to 100 is better, closer to 0 is worst.  This model's score is 73.8% which on the surface looks ok but you need to look at the precion score as well.  Taking these two into consideration, it appears because of the low precision socre, it means that very few of our positive predictions are true.  
 
 **F1 score**
 
@@ -575,7 +563,8 @@ feature_importance_summary.sort_values(by="feature_importance", inplace = True)
 ```
 
 
-<img src=".//g_images/random_forest_feature_selection.png"></img>
+![alt text](/img/posts/fraud_prod/graphs/RF_importance_2.png)
+
 
 **Permutation Importance**
 
@@ -592,13 +581,42 @@ permutation_importance_summary.sort_values(by = "permutation_importance", inplac
 
 ```
 
-The permutation importance feature selection has outlined , the 58 feaures are gra.  Any amount less than 0 was elimnated.  Some with a permuation importance of less than 0. 
+The permutation importance feature selection has outlined , the 29 feaures are gra.  Any amount less than 0 was elimnated.  Some with a permuation importance of less than 0. 
 
-<img src=".//g_images/permutation_importance.png"></img>
+![alt text](/img/posts/fraud_prod/graphs/permutation_importance_2.png)
 
 Any feature with a permutation importance amount less than 0 was removed as it doesn't actually improve the importance of the model.  
 
-<img src=".//g_screenshots/rf_greater.png"></img>
+policy_csl_500/1000
+property_damage_YES
+bodily_injuries
+policy_bind_date
+incident_severity_Total Loss
+collision_type_Side Collision
+insured_relationship_unmarried
+incident_type_Single Vehicle Collision
+insured_occupation_prof-specialty
+insured_occupation_protective-serv
+insured_education_level_College
+insured_occupation_transport-moving
+insured_occupation_handlers-cleaners
+insured_occupation_machine-op-inspct
+authorities_contacted_None
+authorities_contacted_Fire
+insured_occupation_armed-forces
+police_report_available_YES
+insured_education_level_PhD
+insured_education_level_Masters
+insured_occupation_priv-house-serv
+insured_education_level_High School
+insured_sex_MALE
+number_of_vehicles_involved
+umbrella_limit
+insured_education_level_MD
+insured_occupation_farming-fishing
+insured_relationship_wife
+insured_occupation_craft-repair
+
 
 ## Model Training
 
