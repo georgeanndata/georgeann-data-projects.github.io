@@ -379,7 +379,7 @@ print(f"Optimal number of features:  {optimal_feature_count}")
 ```
 The optimal number of features is 3. 
 
-<img src=".//g_images/LR_optimal_feature_graph.png"></img>
+![alt text](/img/posts/fraud_prod/graphs/LR_optimal_feature_graph.png)
 
 Here are the optimal features:
 
@@ -416,7 +416,7 @@ clf.fit(X_train_LR, y_train)
 
 Generating a confusion matrix, we easily see that the data is imbalanced.  Meaning one of the classes has a larger amount than the other(s).  In this case it is the True Negatives.
 
- <img src=".//img/posts/fraud_prod/graphs/LR_confusion_matrix_before_optimal_threshold.png"></img>
+![alt text](/img/posts/fraud_prod/graphs/LR_confusion_matrix_before_optimal_threshold.png)
 
 **Accuracy, Precision, Recall and F1 scores**
 
@@ -441,7 +441,8 @@ print(f"\n Accuracy Score: {accuracy_score_r} \n Precision Score:  {precision_sc
 
  ```
 
-  <img src="img/posts/fraud_prod/ss/a_p_r_scores_1.png"></img>
+![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_1.png)
+
   
   **Optimal Threshold**
   
