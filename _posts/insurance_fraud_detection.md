@@ -441,7 +441,7 @@ print(f"\n Accuracy Score: {accuracy_score_r} \n Precision Score:  {precision_sc
 
  ```
 
-  <img src=".//g_screenshots/rf_a_p_r_1.png"></img>
+  <img src="img/posts/fraud_prod/ss/a_p_r_scores_1.png"></img>
   
   **Optimal Threshold**
   
