@@ -22,6 +22,8 @@ After assessing both models, I determined that the <> model was the best perform
 The performance metrics are as follows:
 
 **Accuracy Score** 
+
+The accuracy score is the percentage of all predictions that were correct, whether they were correctly predicted as fraud or correctly predicted as non-fraud, divided by the total number of predictions.
   
   Logistic Regression: **83.12%** <br>
   Random Forest:  72.41%
@@ -585,8 +587,6 @@ BEFORE
 
 
 **Accuracy Score** 
-
-The accuracy score is the percentage of all predictions that were correct, whether they were correctly predicted as fraud or correctly predicted as non-fraud, divided by the total number of predictions.
   
 The accuracy score of the Logistic Regression model with the larger test set and with the threshold optimization was 79%.  It actually went down from the smaller test set of 83.12%.  If it were not for the fact of the data being imbalanced, this accuracy score would indicate a good model. Any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. Again, considering there is a data imbalance, we need to look at Precision, Recall and F1 scores to get a better assessment of the model.
 
