@@ -17,44 +17,33 @@ This type of data science problem is considered a classification problem because
 
 ### Results
 
-After assessing both models, I determined that the <> model was the best performing model for determing fraud status.  I based this decision on the performance metrics and roc/auc of both models after determining optimal features and thresholds and evaluating a smaller test trainset (80/20) and a slightly larger one (60/40).  The performance metrics are as follows:
+After assessing both models, I determined that the <> model was the best performing model for determing fraud status.  I based this decision on the performance metrics and roc/auc of both models after determining optimal features and thresholds and evaluating a smaller test trainset (80:20) and a slightly larger one (60:40).  
 
-**Accuracy Score** - The percentage of all predictions that were correct.
+The performance metrics are as follows:
 
-
-The accuracy score is at 83%.  If it were not for the fact of the data being imbalanced, those score would indicate a good model. Actually, any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. Again, considering there is a data imbalance, we need to look at Precision, Recall and F1 scores to get a better assessment of the model.
-  F1 Score: 0.6746987951807228
+**Accuracy Score** - 
   
-  Logistic Regression
-  
-  Random Forest
+  Logistic Regression: **83.12%** <br>
+  Random Forest:  72.41%
   
 
 **Precision** - 
-The precision score of a model is a score given for how well the model did on predicting classes correctly. Using this project as an example, the calculation would be take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**Total Positive** (TP)) + the total number of times the model INCORRECTLY predicted it was a fraud when it was actually a non-fraud (**False Positive** (FP)). 
-
-<p align="center">
-  <img src="/img/posts/fraud_prod/ss/precision.png" />
-</p>
-
-Just like in school, a score (grade) of 100 is optimal, but if not, the closer to 100 the better, the closer to 0 the worst. The Logistic Regression model has a presicion score of 62.22% which is good but not great. 
-
+ 
+  Logistic Regression:  **62.22%**<br>
+  Random Forest: 43.16%
+  
 **Recall** - 
-A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**Total Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). 
-
-<p align="center">
-  <img src="/img/posts/fraud_prod/ss/recall.png"  />
-</p>
-
-Any recall score above 50% is good.  Like a precison score, 100 is optimal, closer to 100 is better, closer to 0 is worst.  This model's score is 73.8% which on the surface looks ok but you need to look at the precion score as well.  Taking these two into consideration, it appears because of the low precision socre, it means that very few of our positive predictions are true.  
+ 
+  Logistic Regression: **73.86%**<br>
+  Random Forest: 54.67%
+   
 
 **F1 score**
 
-The F1 score can be interpreted as a weighted average of the precision and recall, where an F1 score reaches its best value at 1 and worst score at 0. The relative contribution of precision and recall to the F1 score are equal.
-
+  Logistic Regression:  **67.47%**<br>
+  Random Forest:  48.24%
+  
 **ROC/AUC**
-
-### Conclusion
 
 ### Background
 
