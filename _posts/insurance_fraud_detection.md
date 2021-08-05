@@ -724,34 +724,31 @@ rfc.fit(X_train_RF, y_train)
 
 --**Updated optimal threshold**--
 
-<img src=".//g_images/RF_optimal_threshold.png"></img>
+![alt text](/img/posts/fraud_prod/graphs/RF_optimal_threshold.png)
 
 The default threshold is 0.5, so decreasing it to 0.31 may give us better results.
-
 
 
 **Confusion Matrix**
 
 BEFORE THRESHOLD
-<img src=".//g_images/rf_confusion_matrix_before_threshold.png"></img>
+![alt text](/img/posts/fraud_prod/graphs/rf_confusion_matrix_before_threshold.png)
 
 AFTER THRESHOLD
-<img src=".//g_images/rf_confusion_matrix_after_threshold.png"></img>
+
+![alt text](/img/posts/fraud_prod/graphs/rf_confusion_matrix_after_threshold.png)
 
 
 **Accuracy, Precision, Recall and F1 scores**
 
-<img src=".//g_screenshots/rf_a_p_r_1.png"></img>
-
-**The Accuracy, Precision, Recall and F1 scores**
-
 BEFORE THRESHOLD
 
-<img src=".//g_screenshots/rf_a_p_r_1.png"></img>
+![alt text](/img/posts/fraud_prod/ss/rf_a_p_r_1.png)
 
-AFTER AFTER THRESHOLD
+AFTER THRESHOLD
 
-<img src=".//g_screenshots/rf_a_p_r_2.png"></img>
+![alt text](/img/posts/fraud_prod/ss/rf_a_p_r_2.png)
+
 
 ## ROC and AUC
 
