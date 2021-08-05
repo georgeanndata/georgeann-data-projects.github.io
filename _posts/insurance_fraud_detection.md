@@ -288,13 +288,13 @@ Evn thought Non-Frauds just happens to be slightly larger, both Non-Fraud and Fr
 
 ### Gender
 <p align="center">
-  <img src="/img/posts/fraud_prod/graphs/2_status_by_gender.png" />
+  <img src="/img/posts/fraud_prod/graphs/status_by_gender_c3.png" />
 </p>
 The number of fraud claims by gender is close to being evenly split, although females have a hair more.  All of all auto accident claims, combined fraud and non-faud, females seem to have more auto accident claimes than males. So much for putting to rest the age old adage about females not having the best driving skills.  
 
 ### Witnesses
 <p align="center">
-  <img src="/img/posts/fraud_prod/graphs/status_by_witnesses.png" />
+  <img src="/img/posts/fraud_prod/graphs/status_by_witnesses_c3.png" />
 </p>
 
 Surprisingly, fraud claims are more apt to have witnesses, than not.  
@@ -302,7 +302,7 @@ Surprisingly, fraud claims are more apt to have witnesses, than not.
 ### Police Report Available
 
 <p align="center">
-  <img src="/img/posts/fraud_prod/graphs/status_by_Police_Report_Availability.png" />
+  <img src="/img/posts/fraud_prod/graphs/status_by_Police_Report_Availability_c3.png" />
 </p>
 
 Unsurprisingly, there are less police reports available for fraud claims than not.  
@@ -486,7 +486,7 @@ print(f"\n Accuracy Score: {accuracy_score_r} \n Precision Score:  {precision_sc
   
   **Optimal Threshold**
   
-One way to handle imbalancing is to adjust the threshold. The threshold is the preveriable line in the sand. It is the line between saying a claim is fraud or non-fraud, above the line, yes, below the line no. To go deeper, when the Logisitic Regression model returns a probability score for a claim (which it does for all in the test set), it looks at the threshold amount and asks if the amount above or below this line?  If it is above, it will say it is probabily fraud, if it is below, I will say it is non-fraud. This is why adjusting it will sometimes make the data more balanced. Remember this data is imbalanced with more correctly predicted non-frauds (TN) than correctly predicted frauds (TP) so after we adjust that line, it may help with the imbalace. 
+One way to handle imbalancing of data is to adjust the threshold. The threshold is the line between saying a claim is fraud or non-fraud, above the line, yes, below the line, no. To go deeper, when the Logisitic Regression model returns a probability score for a claim (which it does for all in the test set), it looks at the threshold amount and asks if the amount above or below this line?  If it is above, it will say it is probabily fraud. If it is below, it will say it is probably non-fraud. This is why adjusting it will sometimes make the data more balanced. Remember, this data is imbalanced with more correctly predicted non-frauds (TN) than correctly predicted frauds (TP), so after we adjust that line, it may help with the imbalace. 
   
    ```
 #####################################################
@@ -543,7 +543,7 @@ AFTER
 
 ![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_2.png)
 
-Changing the threshold did not result in better performance numbers, they actually stayed the same.  The reason for this is may be due to the the model having a small test set, I initially did a 80/20 split.  I resplit the dataset with a 60/40 split and see if the model predicted better on the larger test set.  
+Changing the threshold did not result in better performance numbers, they actually stayed the same.  The reason for this is may be due to the the model having a small test set, I initially did a 80/20 split.  I resplit the dataset with a 60/40 split to see if the model predicted better on the larger test set.  
 
 **Model Assessment with larger test set 
 
@@ -552,7 +552,7 @@ Changing the threshold did not result in better performance numbers, they actual
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42, stratify = y)##test_size percentage allocated to test_set, random_state = shuffling applied before split
 ```
 
-After the new split, besides re-encoding categorical variables and re-scalling the features, I reran feature selection. With this larger training set and the optimal features number went from 3 to 28. 
+After the new split, besides re-encoding categorical variables and re-scalling the features, I reran feature selection with this larger training set and the optimal features number went from 3 to 28. 
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_update.png)
 
@@ -560,7 +560,7 @@ The list of the 28 features.
 
 ![alt text](/img/posts/fraud_prod/ss/LR_feature_selection_2.png)
 
-After updating the test and training sets with the 28 optimal features, I refitted and retrained the model and updated the threshold (0.31), hoping for better performance results.
+After updating the test and training sets with the 28 optimal features. I refitted and retrained the model and updated the threshold (0.31), hoping for better performance results.
 
 --**Updated optimal threshold**--
 
@@ -571,23 +571,26 @@ After updating the test and training sets with the 28 optimal features, I refitt
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_AFTER_.png)
 
 --**Updated performance metrics**--
-
-BEFORE
-
-![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_2.png)
   
 AFTER
 
 ![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_3.png)
 
+BEFORE
 
-**Accuracy Score** - The percentage of all predictions that were correct.
+![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_2.png)
+
+
+**Accuracy Score** 
+
+The accuracy score is the percentage of all predictions that were correct, whether they were correctly predicted as fraud or correctly predicted as non-fraud, divided by the total number of predictions.
   
-The accuracy score is at 83%.  If it were not for the fact of the data being imbalanced, those score would indicate a good model. Actually, any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. Again, considering there is a data imbalance, we need to look at Precision, Recall and F1 scores to get a better assessment of the model.
+The accuracy score of the Logistic Regression model, both before and after, threshold optimization was 83%.  If it were not for the fact of the data being imbalanced, this accuracy score would indicate a good model. Any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. Again, considering there is a data imbalance, we need to look at Precision, Recall and F1 scores to get a better assessment of the model.
+
   F1 Score: 0.6746987951807228
 
 **Precision** - 
-The precision score of a model is a score given for how well the model did on predicting classes correctly. Using this project as an example, the calculation would be take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**Total Positive** (TP)) + the total number of times the model INCORRECTLY predicted it was a fraud when it was actually a non-fraud (**False Positive** (FP)). 
+The precision score of a model is a score given for how well the model did on predicting clasess correctly. Using this project as an example, the calculation would be take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) + the total number of times the model INCORRECTLY predicted it was a fraud when it was actually a non-fraud (**False Positive** (FP)). In other words, of all the correctly predicted frauds and non-frauds, what is the percentage that were correctly predicted as fraud.
 
 <p align="center">
   <img src="/img/posts/fraud_prod/ss/precision.png" />
@@ -596,13 +599,13 @@ The precision score of a model is a score given for how well the model did on pr
 Just like in school, a score (grade) of 100 is optimal, but if not, the closer to 100 the better, the closer to 0 the worst. The Logistic Regression model has a presicion score of 62.22% which is good but not great. 
 
 **Recall** - 
-A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**Total Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). 
+A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). In other words, of all the frauds, whether predicted correctly or not, what is the percentage that were correctly predicted as fraud.
 
 <p align="center">
   <img src="/img/posts/fraud_prod/ss/recall.png"  />
 </p>
 
-Any recall score above 50% is good.  Like a precison score, 100 is optimal, closer to 100 is better, closer to 0 is worst.  This model's score is 73.8% which on the surface looks ok but you need to look at the precion score as well.  Taking these two into consideration, it appears because of the low precision socre, it means that very few of our positive predictions are true.  
+This model's score is 73.8% which on the surface looks ok but you need to look at the precion score as well. Any recall score above 50% is good.  Like a precison score, 100 is optimal, closer to 100 is better, closer to 0 is worst.   
 
 **F1 score**
 
