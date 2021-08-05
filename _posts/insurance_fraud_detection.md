@@ -394,16 +394,16 @@ X_test = pd.DataFrame(scale_standared.transform(X_test), columns = X_test.column
 
 ```
 
-## Feature Selection
+## Initialize Logistic Regression
 
 Having the optimal amount of features is paramount to the effectiveness of the model.  For the Logistic Regression model I decided to use the Recursive Feature Elimination and Cross-Validation Selection (RFECV) to eliminate the irrelevant features.
 
 ```
 #####################################################
-# Feature Selection
+# Initialize classifier
 #####################################################
 
-## Initializa logistic regression model
+## Initialize logistic regression model
 ##Use Logistic Regression
 clf = LogisticRegression(random_state = 42, max_iter = 1000)
 feature_selector = RFECV(clf)## default is 5 chunks but can specify other
@@ -411,20 +411,28 @@ feature_selector = RFECV(clf)## default is 5 chunks but can specify other
 ## fit feature to our data to train our model 
 fit = feature_selector.fit(X_train,y_train)
 
+```
+## Feature Selection
+
+```
+#####################################################
+# Feature Selection
+#####################################################
+
 ## to find optimal # of features and count
 optimal_feature_count = feature_selector.n_features_
 print(f"Optimal number of features:  {optimal_feature_count}")
 
 ```
+
 The optimal number of features is 3. 
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_feature_graph.png)
 
 Here are the optimal features:
 
-incident_severity_Minor Damage
-incident_severity_Total Loss
-incident_severity_Trivial Damage
+![alt text](/img/posts/fraud_prod/ss/LR_optimal.png)
+
 
 Update the test and training tests with the above optimal features.
 
@@ -453,14 +461,14 @@ clf.fit(X_train_LR, y_train)
 
 **Confusion Matrix**
 
-Generating a confusion matrix, we easily see that the data is imbalanced.  Meaning one of the classes has a larger amount than the other(s).  In this case it is the True Non-Frauds (non-frauds predicted correctly as non-frauds), 105 to 28 True Frauds (frauds predicted correctly as frauds).
+Generating a confusion matrix, we can easily see that the data is imbalanced, meaning one of the classes has a larger amount than the other(s).  In this case it is the True Non-Frauds (non-frauds predicted correctly as non-frauds), 105 to 28 True Frauds (frauds predicted correctly as frauds).
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_before.png)
 
 
 **Accuracy, Precision, Recall and F1 scores**
 
-Even though the data is imbalaned and needs to be adjusted, I ran the Accuracy, Precision, Recall and F1 scores so we can compare them to what they are after making adjustments for the imbalancing. (See below)
+Even though the data is imbalaned and needs to be addressed, I ran the Accuracy, Precision, Recall and F1 scores so we can compare them to what they are after making adjustments for the imbalancing. (See below)
 
  ```
  ## Accuracy (the number of correct classification out of all attempted classifications)
@@ -477,25 +485,28 @@ recall_score_r = recall_score(y_test, y_pred_class, pos_label='Y')
 
 f1_score_r = f1_score(y_test, y_pred_class, pos_label='Y')
 
-print(f"\n Accuracy Score: {accuracy_score_r} \n Precision Score:  {precision_score_r} \n Recall Score:  {recall_score_r} \n F1 Score: {f1_score_r}")
+print("\nAccuracy Score: {0:.2%}".format(accuracy_score_r))
+print("Precision Score: {0:.2%}".format(precision_score_r))
+print("Recall Score: {0:.2%}".format(recall_score_r))
+print("F1 Score: {0:.2%}".format(f1_score_r))
 
  ```
 
 ![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_1.png)
 
-  
+ ## Handling Data Imbalance
+ 
   **Optimal Threshold**
   
-One way to handle imbalancing of data is to adjust the threshold. The threshold is the line between saying a claim is fraud or non-fraud, above the line, yes, below the line, no. To go deeper, when the Logisitic Regression model returns a probability score for a claim (which it does for all in the test set), it looks at the threshold amount and asks if the amount above or below this line?  If it is above, it will say it is probabily fraud. If it is below, it will say it is probably non-fraud. This is why adjusting it will sometimes make the data more balanced. Remember, this data is imbalanced with more correctly predicted non-frauds (TN) than correctly predicted frauds (TP), so after we adjust that line, it may help with the imbalace. 
+One way to handle imbalancing of data is to adjust the threshold. The threshold is the line between saying a claim is fraud or non-fraud. To go deeper, when the Logisitic Regression model returns a probability score for a claim (which it does for all in the test set), it looks at the threshold amount and asks if the amount above or below this line?  If it is above, it will say it is probabily fraud. If it is below, it will say it is probably non-fraud. This is why adjusting the threshold will sometimes make the data more balanced.  
   
    ```
 #####################################################
 # Finding the optimal threshold
 #####################################################
+## map test to 1, 0, cast as int
+y_test = y_test.map({'Y': 1, 'N': 0}).astype(int)
 
-#map y test 
-y_test_t = y_test.map({'Y': 1, 'N': 0}).astype(int)
-print(type(y_test_t))
 
 thresholds = np.arange(0, 1, 0.01)
 
@@ -507,15 +518,18 @@ for threshold in thresholds:
     
     pred_class = (y_pred_prob >= threshold) * 1
     
-    precision = precision_score(y_test_t, pred_class, zero_division = 0)
+    precision = precision_score(y_test, pred_class, zero_division = 0)
     precision_scores.append(precision)
     
-    recall = recall_score(y_test_t, pred_class)
+    recall = recall_score(y_test, pred_class)
     recall_scores.append(recall)
     
-    f1 = f1_score(y_test_t, pred_class)
+    f1 = f1_score(y_test, pred_class)
     f1_scores.append(f1)
 
+
+max_f1 = max(f1_scores)
+max_f1_indx = f1_scores.index(max_f1)
 
 max_f1 = max(f1_scores)
 max_f1_indx = f1_scores.index(max_f1)
@@ -543,13 +557,13 @@ AFTER
 
 ![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_2.png)
 
-Changing the threshold did not result in better performance numbers, they actually stayed the same.  The reason for this is may be due to the the model having a small test set, I initially did a 80/20 split.  I resplit the dataset with a 60/40 split to see if the model predicted better on the larger test set.  
+Changing the threshold did not result in better performance numbers, they actually stayed the same.  The reason for this is may be due to the the model having a small test set, I initially did a 80:20 split.  I resplit the dataset with a 60:40 split to see if the model predicted better on the larger test set.  
 
 **Model Assessment with larger test set 
 
 
 ```
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42, stratify = y)##test_size percentage allocated to test_set, random_state = shuffling applied before split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42, stratify = y)
 ```
 
 After the new split, besides re-encoding categorical variables and re-scalling the features, I reran feature selection with this larger training set and the optimal features number went from 3 to 28. 
@@ -585,18 +599,18 @@ BEFORE
 
 The accuracy score is the percentage of all predictions that were correct, whether they were correctly predicted as fraud or correctly predicted as non-fraud, divided by the total number of predictions.
   
-The accuracy score of the Logistic Regression model, both before and after, threshold optimization was 83%.  If it were not for the fact of the data being imbalanced, this accuracy score would indicate a good model. Any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. Again, considering there is a data imbalance, we need to look at Precision, Recall and F1 scores to get a better assessment of the model.
-
-  F1 Score: 0.6746987951807228
+The accuracy score of the Logistic Regression model with the larger test set and with the threshold optimization was 79%.  It actually went down from the smaller test set of 83.12%.  If it were not for the fact of the data being imbalanced, this accuracy score would indicate a good model. Any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. Again, considering there is a data imbalance, we need to look at Precision, Recall and F1 scores to get a better assessment of the model.
 
 **Precision** - 
+
 The precision score of a model is a score given for how well the model did on predicting clasess correctly. Using this project as an example, the calculation would be take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) + the total number of times the model INCORRECTLY predicted it was a fraud when it was actually a non-fraud (**False Positive** (FP)). In other words, of all the correctly predicted frauds and non-frauds, what is the percentage that were correctly predicted as fraud.
 
 <p align="center">
   <img src="/img/posts/fraud_prod/ss/precision.png" />
 </p>
 
-REEVALUATE--THIS IS WRONG- Just like in school, a score (grade) of 100 is optimal, but if not, the closer to 100 the better, the closer to 0 the worst. The Logistic Regression model has a presicion score of 62.22% which is good but not great. 
+The precision score of the Logistic Regression model is 54.76%, meaning that 
+
 
 **Recall** - 
 A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). In other words, of all the frauds, whether predicted correctly or not, what is the percentage that were correctly predicted as fraud.
@@ -605,11 +619,11 @@ A recall score is the converse of precision and if you add to the two together t
   <img src="/img/posts/fraud_prod/ss/recall.png"  />
 </p>
 
-REEVALUATE--THIS IS WRONG-This model's score is 73.8% which on the surface looks ok but you need to look at the precion score as well. Any recall score above 50% is good.  Like a precison score, 100 is optimal, closer to 100 is better, closer to 0 is worst.   
+The recall score of the Logistic Regression model is 61.33%, meaning that 
 
 **F1 score**
 
-The F1 score can be interpreted as a weighted average of the precision and recall, where an F1 score reaches its best value at 1 and worst score at 0. The relative contribution of precision and recall to the F1 score are equal.
+The F1 score of the Logistic Regression model is 57.86%, meaning that 
 
 
 ########################################################
@@ -657,6 +671,8 @@ Here are the features:
 
 ```
 # Permutation Importance 
+y_test = y_test.map({1: 'Y', 0: 'N'})##remap back for permutation
+
 from sklearn.inspection import permutation_importance
 
 result = permutation_importance(rfc, X_test, y_test, n_repeats = 10, random_state = 42)
@@ -668,11 +684,11 @@ permutation_importance_summary.sort_values(by = "permutation_importance", inplac
 
 ```
 
-The permutation importance feature selection has outlined , the 29 feaures are gra.  Any amount less than 0 was elimnated.  Some with a permuation importance of less than 0. 
+The permutation importance feature selection has outlined 58 features. 
 
 ![alt text](/img/posts/fraud_prod/graphs/permutation_importance_2_.png)
 
-Any feature with a permutation importance amount less than 0 was removed as it doesn't actually improve the importance of the model.  
+Any feature with a permutation importance amount less than or equal to 0 was removed as it doesn't actually improve the importance of the model.  
 
 Here are the features:
 
@@ -681,7 +697,7 @@ Here are the features:
 
 ## Model Training
 
-The resulting 21 features were then refitted to the model and the training and test sets updated.
+The resulting 16 features were then refitted to the model and the training and test sets updated.
 
 ```
 rf_perm = permutation_importance_summary[permutation_importance_summary['permutation_importance'] >= 0]
@@ -706,9 +722,22 @@ rfc.fit(X_train_RF, y_train)
 ```
 ## Model Assessment
 
+--**Updated optimal threshold**--
+
+<img src=".//g_images/RF_optimal_threshold.png"></img>
+
+The default threshold is 0.5, so decreasing it to 0.31 may give us better results.
+
+
+
 **Confusion Matrix**
 
+BEFORE THRESHOLD
 <img src=".//g_images/rf_confusion_matrix_before_threshold.png"></img>
+
+AFTER THRESHOLD
+<img src=".//g_images/rf_confusion_matrix_after_threshold.png"></img>
+
 
 **Accuracy, Precision, Recall and F1 scores**
 
@@ -716,11 +745,11 @@ rfc.fit(X_train_RF, y_train)
 
 **The Accuracy, Precision, Recall and F1 scores**
 
-BEFORE
+BEFORE THRESHOLD
 
 <img src=".//g_screenshots/rf_a_p_r_1.png"></img>
 
-AFTER
+AFTER AFTER THRESHOLD
 
 <img src=".//g_screenshots/rf_a_p_r_2.png"></img>
 
