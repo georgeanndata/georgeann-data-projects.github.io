@@ -17,22 +17,22 @@ This type of data science problem is considered a classification problem because
 
 ### Results
 
-After assessing both models, I determined that the <> model was the best performing model for determing fraud status.  I based this decision on the performance metrics and roc/auc of both models after determining optimal features and thresholds and evaluating a smaller test trainset (80:20) and a slightly larger one (60:40).  
+After assessing both models, I determined that the <> model was the best performing model for determing fraud status.  I based this decision on the performance metrics and ROC/AUC of both models.
 
 The performance metrics are as follows:
 
-**Accuracy Score** - 
+**Accuracy Score** 
   
   Logistic Regression: **83.12%** <br>
   Random Forest:  72.41%
   
 
-**Precision** - 
+**Precision**  
  
   Logistic Regression:  **62.22%**<br>
   Random Forest: 43.16%
   
-**Recall** - 
+**Recall**  
  
   Logistic Regression: **73.86%**<br>
   Random Forest: 54.67%
