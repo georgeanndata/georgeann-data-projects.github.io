@@ -596,7 +596,7 @@ The precision score of a model is a score given for how well the model did on pr
   <img src="/img/posts/fraud_prod/ss/precision.png" />
 </p>
 
-Just like in school, a score (grade) of 100 is optimal, but if not, the closer to 100 the better, the closer to 0 the worst. The Logistic Regression model has a presicion score of 62.22% which is good but not great. 
+REEVALUATE--THIS IS WRONG- Just like in school, a score (grade) of 100 is optimal, but if not, the closer to 100 the better, the closer to 0 the worst. The Logistic Regression model has a presicion score of 62.22% which is good but not great. 
 
 **Recall** - 
 A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). In other words, of all the frauds, whether predicted correctly or not, what is the percentage that were correctly predicted as fraud.
@@ -605,7 +605,7 @@ A recall score is the converse of precision and if you add to the two together t
   <img src="/img/posts/fraud_prod/ss/recall.png"  />
 </p>
 
-This model's score is 73.8% which on the surface looks ok but you need to look at the precion score as well. Any recall score above 50% is good.  Like a precison score, 100 is optimal, closer to 100 is better, closer to 0 is worst.   
+REEVALUATE--THIS IS WRONG-This model's score is 73.8% which on the surface looks ok but you need to look at the precion score as well. Any recall score above 50% is good.  Like a precison score, 100 is optimal, closer to 100 is better, closer to 0 is worst.   
 
 **F1 score**
 
@@ -647,7 +647,8 @@ feature_importance_summary.sort_values(by="feature_importance", inplace = True)
 
 Here are the features:
 
-![alt text](/img/posts/fraud_prod/ss/.png)
+![alt text](/img/posts/fraud_prod/ss/rf_features_1.png)
+![alt text](/img/posts/fraud_prod/ss/rf_features_2.png)
 
 
 
@@ -674,7 +675,7 @@ Any feature with a permutation importance amount less than 0 was removed as it d
 
 Here are the features:
 
-![alt text](/img/posts/fraud_prod/ss/.png)
+![alt text](/img/posts/fraud_prod/ss/perm_features.png)
 
 
 ## Model Training
