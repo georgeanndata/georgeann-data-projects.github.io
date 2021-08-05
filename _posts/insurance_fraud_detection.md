@@ -648,6 +648,7 @@ feature_importance_summary.sort_values(by="feature_importance", inplace = True)
 Here are the features:
 
 ![alt text](/img/posts/fraud_prod/ss/rf_features_1.png)
+
 ![alt text](/img/posts/fraud_prod/ss/rf_features_2.png)
 
 
