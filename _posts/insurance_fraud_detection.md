@@ -722,6 +722,11 @@ rfc.fit(X_train_RF, y_train)
 ```
 ## Model Assessment
 
+**Confusion Matrix**
+
+![alt text](/img/posts/fraud_prod/graphs/rf_confusion_matrix_before_threshold.png)
+
+
 --**Updated optimal threshold**--
 
 ![alt text](/img/posts/fraud_prod/graphs/RF_optimal_threshold.png)
@@ -729,12 +734,18 @@ rfc.fit(X_train_RF, y_train)
 The default threshold is 0.5, so decreasing it to 0.31 may give us better results.
 
 
-**Confusion Matrix**
+**Confusion Matrix Post Threshold**
 
 ![alt text](/img/posts/fraud_prod/graphs/rf_confusion_after_threshold.png)
 
 
 **Accuracy, Precision, Recall and F1 scores**
+
+BEFORE
+
+![alt text](/img/posts/fraud_prod/ss/rf_a_p_r_1.png)
+
+AFTER
 
 ![alt text](/img/posts/fraud_prod/ss/rf_a_p_r_2.png)
 
