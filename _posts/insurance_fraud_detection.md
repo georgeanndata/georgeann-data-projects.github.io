@@ -550,7 +550,7 @@ AFTER
 
 Changing the threshold did not result in better performance numbers, they actually stayed the same.  The reason for this is may be due to the the model having a small test set, I initially did a 80:20 split.  I resplit the dataset with a 60:40 split to see if the model predicted better on the larger test set.  
 
-**Model Assessment with larger test set, 60:40 Split
+## Model Assessment with larger test set, 60:40 Split
 
 ```
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42, stratify = y)
@@ -623,7 +623,7 @@ The F1 score is the blending of precision and recall, an harmonic mean. The high
 
 Before the theshold adjustment and test set size increase, the f1 score score was 67.47% and after it went down to 57.86%. The higher the f1 score, the better and in this case, before and after, this score it not great at all.   
 
-Since using a Logistic Regression model did not provide great results, the next model I tried was the Random Forest. 
+Since using a Logistic Regression model did not provide great results, the next model I tried was the Random Forest as they tend to be highly accurate. 
 
 
 ########################################################
@@ -642,6 +642,8 @@ rfc.fit(X_train, y_train)
 ```
 
 ### Feature Selection 
+
+There are few methods that can be used for feature selection with a Random Forest model.  I tried both the the built-in method which utilizes the Gini importance (mean decrease impurity, the more it decreases, the more important the feature) and the Permutation what effective the feature has on the model accuracy by randomly re-ordering the it. 
 
 **Built-in Random Forest Importance** 
 
