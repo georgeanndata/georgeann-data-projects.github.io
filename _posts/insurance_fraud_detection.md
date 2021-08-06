@@ -643,7 +643,7 @@ rfc.fit(X_train, y_train)
 
 ### Feature Selection 
 
-There are few methods that can be used for feature selection with a Random Forest model.  I tried both the the built-in method which utilizes the Gini importance (mean decrease impurity, the more it decreases, the more important the feature) and the Permutation what effective the feature has on the model accuracy by randomly re-ordering the it. 
+There are few methods that can be used for feature selection with a Random Forest model.  I tried both the the built-in method which utilizes the Gini importance (mean decrease impurity, the more it decreases, the more important the feature) and the Permutation Importance which calculates what effective the feature has on the model accuracy by randomly re-ordering it. 
 
 **Built-in Random Forest Importance** 
 
@@ -684,20 +684,20 @@ permutation_importance_summary.sort_values(by = "permutation_importance", inplac
 
 ```
 
-The permutation importance feature selection has outlined 58 features. 
-
 ![alt text](/img/posts/fraud_prod/graphs/permutation_importance_2_.png)
 
-Any feature with a permutation importance amount less than or equal to 0 was removed as it doesn't actually improve the importance of the model.  
+Any feature with a permutation importance amount less than 0 was removed as it doesn't actually improve the importance of the model.  
 
-Here are the features:
+Here are the resulting 16 features:
 
 ![alt text](/img/posts/fraud_prod/ss/perm_features.png)
+
+I decided to use the Permutation Importance feature selection because, although more computing intensive to calculate, it, unlike the built-in feature importance, is not biased towards high-cardinality categorical variables and is more reliable in its results. 
 
 
 ## Model Training
 
-The resulting 16 features were then refitted to the model and the training and test sets updated.
+The resulting Permutation Importance 16 features were then refitted to the model and the training and test sets updated.
 
 ```
 rf_perm = permutation_importance_summary[permutation_importance_summary['permutation_importance'] >= 0]
@@ -731,21 +731,10 @@ The default threshold is 0.5, so decreasing it to 0.31 may give us better result
 
 **Confusion Matrix**
 
-BEFORE THRESHOLD
-![alt text](/img/posts/fraud_prod/graphs/rf_confusion_matrix_before_threshold.png)
-
-AFTER THRESHOLD
-
 ![alt text](/img/posts/fraud_prod/graphs/rf_confusion_matrix_after_threshold.png)
 
 
 **Accuracy, Precision, Recall and F1 scores**
-
-BEFORE THRESHOLD
-
-![alt text](/img/posts/fraud_prod/ss/rf_a_p_r_1.png)
-
-AFTER THRESHOLD
 
 ![alt text](/img/posts/fraud_prod/ss/rf_a_p_r_2.png)
 
@@ -757,30 +746,36 @@ from sklearn.metrics import roc_curve
 from sklearn.metrics import roc_auc_score
 
 
-fpr1, tpr1, thresholds1 = roc_curve(y_test, clf.predict_proba(X_test_LR)[:,1])
-fpr2, tpr2, thresholds2 = roc_curve(y_test, rfc.predict_proba(X_test_RF)[:,1])
-
+fpr_lr, tpr_lr, thresholds_lr = roc_curve(y_test_numbers, clf.predict_proba(X_test_LR)[:,1])
+fpr_rf, tpr_rf, thresholds_rf = roc_curve(y_test_t, rfc.predict_proba(X_test_RF)[:,1])
 
 ##plot ROC curves
 plt.plot([0,1],[0,1], 'k--')
-plt.plot(fpr1, tpr1, label= "Log Regression")
-plt.plot(fpr2, tpr2, label= "Random Forest")
+plt.plot(fpr_lr, tpr_lr, label= "Logistic Regression", linewidth=4)
+plt.plot(fpr_rf, tpr_rf, label= "Random Forest", linewidth=4)
 plt.legend()
 plt.xlabel("False Positive Rate")
 plt.ylabel("True Positive Rate")
 plt.title('Receiver Operating Characteristic')
 plt.show()
 
-# auc scores
-auc_log_reg = roc_auc_score(y_test, clf.predict_proba(X_test_LR)[:,1])
-auc_random_forest = roc_auc_score(y_test, rfc.predict_proba(X_test_RF)[:,1])
-
-line = "----" * 10
-print(f"\nAUC Scores\n{line}\nLogistic Regression: {auc_log_reg} \nRandom Forest: {auc_random_forest}")
+```
+![alt text](/img/posts/fraud_prod/graphs/AUC-ROC_graph.png)
 
 ```
 
+# auc scores
+auc_log_reg = roc_auc_score(y_test_numbers, clf.predict_proba(X_test_LR)[:,1])
+auc_random_forest = roc_auc_score(y_test_t, rfc.predict_proba(X_test_RF)[:,1])
+
+line = "----" * 10
+print(f"\nAUC Scores\n{line}")
+print("Logistic Regression: {0:.2%}".format(auc_log_reg))
+print("Random Forest: {0:.2%}".format(auc_random_forest))
+```
+![alt text](/img/posts/fraud_prod/ss/AUC-ROC_scores.png)
+
 Between the Logistic Regression model and Random Forest models, Logistic Regression is the better of the two.
 
-<img src=".//g_images/AUC-ROC_graph.png"></img>
+
 
