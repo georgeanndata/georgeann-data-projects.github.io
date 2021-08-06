@@ -416,7 +416,7 @@ print(f"Optimal number of features:  {optimal_feature_count}")
 
 ```
 
-The optimal number of features is 3. 
+The optimal number of features is 3. Having only 3 features can lead to overfitting so, besides addressing the class imbalance, I needed to address the small number of optimal features.
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_feature_graph.png)
 
@@ -531,7 +531,7 @@ The optimal threshold is 0.13.
 
  ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_.png)
   
-The default threshold is 0.5, so decreasing it to 0.13 may give us better results.
+The default threshold is 0.5, so adjusting it to 0.13 may give us better results.
 
 **Confusion Matrix post threshold**
 
@@ -550,14 +550,13 @@ AFTER
 
 Changing the threshold did not result in better performance numbers, they actually stayed the same.  The reason for this is may be due to the the model having a small test set, I initially did a 80:20 split.  I resplit the dataset with a 60:40 split to see if the model predicted better on the larger test set.  
 
-**Model Assessment with larger test set 
-
+**Model Assessment with larger test set, 60:40 Split
 
 ```
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42, stratify = y)
 ```
 
-After the new split, besides re-encoding categorical variables and re-scalling the features, I reran feature selection with this larger training set and the optimal features number went from 3 to 28. 
+After the new split, besides re-encoding categorical variables and re-scalling the features, I reran feature selection with this larger training set and the optimal features number went from 3 to 28. The splitting of the data to make a larger test set, helped with increasing the number of optimal features, which helps with the overfitting concern.
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_update.png)
 
