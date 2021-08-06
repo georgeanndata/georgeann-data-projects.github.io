@@ -736,7 +736,7 @@ The default threshold is 0.5, so decreasing it to 0.31 may give us better result
 
 **Confusion Matrix Post Threshold**
 
-![alt text](/img/posts/fraud_prod/graphs/rf_confusion_after_threshold.png)
+![alt text](/img/posts/fraud_prod/graphs/.png)
 
 
 **Accuracy, Precision, Recall and F1 scores**
