@@ -489,7 +489,7 @@ print("F1 Score: {0:.2%}".format(f1_score_r))
  
   **Optimal Threshold**
   
-One way to handle imbalancing of data is to adjust the threshold. The threshold is the line between saying a claim is fraud or non-fraud. To go deeper, when the Logisitic Regression model returns a probability score for a claim (which it does for all in the test set), it looks at the threshold amount and asks if the amount above or below this line?  If it is above, it will say it is probabily fraud. If it is below, it will say it is probably non-fraud. This is why adjusting the threshold will sometimes make the data more balanced.  
+One way to handle the imbalancing of data is to adjust the threshold. The threshold is the line between saying a claim is fraud or non-fraud. To go deeper, when the Logisitic Regression model returns a probability score for a claim (which it does for all in the test set), it looks at the threshold amount and asks if the that probability score is above or below this line.  If it is above, it will say it is probabily fraud. If it is below, it will say it is probably non-fraud. This is why adjusting the threshold will sometimes make the data more balanced.  
   
    ```
 #####################################################
@@ -531,7 +531,7 @@ The optimal threshold is 0.13.
 
  ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_.png)
   
-The default threshold is 0.5, so adjusting it to 0.13 may give us better results.
+The default threshold is 0.5, so adjusting it to 0.13 may give us better results.  
 
 **Confusion Matrix post threshold**
 
@@ -576,49 +576,59 @@ After updating the test and training sets with the 28 optimal features. I refitt
 
 --**Updated performance metrics**--
   
-AFTER
-
-![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_3.png)
-
 BEFORE
 
 ![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_2.png)
 
+AFTER
+
+![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_3.png)
 
 **Accuracy Score** 
+
+The accuracy score is the percentage of correctly predicted claims (whether they were fraud or non-fraud) divided by the total number of claims. It is a score that can give a good description of the model's performance but does not give an accurate picture when their is a data imbalance, which is in this case. 
+
+<p align="center">
+  <img src="/img/posts/fraud_prod/ss/accuracy_calc.png"  />
+</p>
   
-The accuracy score of the Logistic Regression model with the larger test set and with the threshold optimization was 79%.  It actually went down from the smaller test set of 83.12%.  If it were not for the fact of the data being imbalanced, this accuracy score would indicate a good model. Any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. Again, considering there is a data imbalance, we need to look at Precision, Recall and F1 scores to get a better assessment of the model.
+Before the theshold adjustment and test set size increase, the accuracy score was 83.12% and after it went down to 79.00%.  If it were not for the fact of the data being imbalanced, both these accuracy scores would indicate a good model. Any accuracy score between 70-80% is considered good and between 80-90% is considered excellent. Again, considering there is a data imbalance, we need to look at Precision, Recall and F1 scores to get a better assessment of the model.
 
-**Precision** - 
+**Precision**  
 
-The precision score of a model is a score given for how well the model did on predicting clasess correctly. Using this project as an example, the calculation would be take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) + the total number of times the model INCORRECTLY predicted it was a fraud when it was actually a non-fraud (**False Positive** (FP)). In other words, of all the correctly predicted frauds and non-frauds, what is the percentage that were correctly predicted as fraud.
+The precision score of a model is a score given for how well the model did on predicting clasess correctly. Using this project as an example, the calculation would be take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) + the total number of times the model INCORRECTLY predicted it was a fraud when it was actually a non-fraud (**False Positive** (FP)). In other words, of all the claims the model predicted as frauds (correctly predicted as frauds and incorrectly predicted as frauds), what is the percentage that were correctly predicted as fraud (true frauds).  
+<p align="center">
+  <img src="/img/posts/fraud_prod/ss/precision_calc.png" />
+</p> 
+
+Before the theshold adjustment and test set size increase, the prcecision score was 62.22% and after it went down to 54.76%. Any amount over 50% is considered good but, again, this score is not great.
+
+**Recall**  
+
+A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). In other words, of all the claims the model were actually frauds (correctly predicted as frauds and incorrectly predicted as non-frauds when they were actually frauds), what is the percentage that were correctly predicted as fraud (true frauds).  
 
 <p align="center">
-  <img src="/img/posts/fraud_prod/ss/precision.png" />
+  <img src="/img/posts/fraud_prod/ss/recall_calc.png"  />
 </p>
 
-The precision score of the Logistic Regression model is 54.76%, meaning that 
-
-
-**Recall** - 
-A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). In other words, of all the frauds, whether predicted correctly or not, what is the percentage that were correctly predicted as fraud.
-
-<p align="center">
-  <img src="/img/posts/fraud_prod/ss/recall.png"  />
-</p>
-
-The recall score of the Logistic Regression model is 61.33%, meaning that 
+Before the theshold adjustment and test set size increase, the recall score was 73.68% and after it went down to 61.33%. Any amount over 50% is considered good but, again, this score is not great.
 
 **F1 score**
 
-The F1 score of the Logistic Regression model is 57.86%, meaning that 
+The F1 score is the blending of precision and recall, an harmonic mean. The higher the score, the more accurate the model did at predicting.  
+
+<p align="center">
+  <img src="/img/posts/fraud_prod/ss/f1_score_calc.png"  />
+</p>
+
+Before the theshold adjustment and test set size increase, the f1 score score was 67.47% and after it went down to 57.86%. The higher the f1 score, the better and in this case, before and after, this score it not great at all.   
+
+Since using a Logistic Regression model did not provide great results, the next model I tried was the Random Forest. 
 
 
 ########################################################
 
 ## Random Forest model
-
-Since using a Logistic Regression model did not provide great results, the next model I tried was the Random Forest. 
 
 ```
 ######################################################
