@@ -572,7 +572,7 @@ After updating the test and training sets with the 28 optimal features. I refitt
 
 --**Updated confusion matrix**--
 
-![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_AFTER_.png)
+![alt text](/img/posts/fraud_prod/graphs/.png)
 
 --**Updated performance metrics**--
   
