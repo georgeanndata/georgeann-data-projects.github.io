@@ -71,7 +71,7 @@ The Logistic Regression model returned the best ROC-AUC score.
 
 ### Conclusion
 
-After assessing both models, I determined that the Logistic Regression model was the best performing model for determing fraud status.  I based this decision on the performance metrics and ROC/AUC of both models.
+After assessing both models, I determined that the Logistic Regression model was the best performing model for determing fraud status.  I based this decision on the performance metrics and ROC-AUC of both models.
 
 ### Background
 
