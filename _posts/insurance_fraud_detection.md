@@ -21,13 +21,13 @@ Logistic Regression and Random Forest for Classificaiton models were assessed wi
 
 The performance metrics are as follows:
 
-![alt text](/img/posts/fraud_prod/ss/perform)m_graph.png, align = 'center')
+![alt text](/img/posts/fraud_prod/ss/perform_m_graph.png)
 
 **Accuracy Score** 
 
 The accuracy score is the percentage of all predictions that were correct, whether they were correctly predicted as fraud or correctly predicted as non-fraud, divided by the total number of predictions.
   
-Logistic Regression: **83.12%** <br>
+Logistic Regression: **79.00%** <br>
 Random Forest:  72.41%
   
 The Logistic Regression model returned the best accuracy score.
@@ -36,7 +36,7 @@ The Logistic Regression model returned the best accuracy score.
  
 The precision score of a model is a score given for how well the model did on predicting clasess correctly. 
  
-Logistic Regression:  **62.22%**<br>
+Logistic Regression:  **54.76%**<br>
 Random Forest: 43.16%
 
 The Logistic Regression model returned the best precision score.
@@ -45,7 +45,7 @@ The Logistic Regression model returned the best precision score.
 
 The recall score is how well the model did in labeling fraud claims as fraud.
 
-Logistic Regression: **73.86%**<br>
+Logistic Regression: **61.33%**<br>
 Random Forest: 54.67%
 
 The Logistic Regression model returned the best recall score.
@@ -55,7 +55,7 @@ The Logistic Regression model returned the best recall score.
 
 The F1 score is the blending of precision and recall, an harmonic mean.
 
-Logistic Regression:  **67.47%**<br>
+Logistic Regression:  **57.86%**<br>
 Random Forest:  48.24%
 
 The Logistic Regression model returned the best F1 score.
