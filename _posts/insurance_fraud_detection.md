@@ -21,6 +21,8 @@ Logistic Regression and Random Forest for Classificaiton models were assessed wi
 
 The performance metrics are as follows:
 
+![alt text](/img/posts/fraud_prod/ss/perform)m_graph.png, align = 'center')
+
 **Accuracy Score** 
 
 The accuracy score is the percentage of all predictions that were correct, whether they were correctly predicted as fraud or correctly predicted as non-fraud, divided by the total number of predictions.
