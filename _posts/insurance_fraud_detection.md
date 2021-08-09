@@ -845,7 +845,7 @@ print("Random Forest: {0:.2%}".format(auc_random_forest_pr))
 
 ```
 
-![alt text](/img/posts/fraud_prod/ss/precision_recall_curves.png)
+![alt text](/img/posts/fraud_prod/graphs/precision_recall_curves.png)
 
 
 
