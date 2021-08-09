@@ -5,16 +5,74 @@ image: "/posts/.jpg"
 tags: [fraud detection, Logistic Regression, Random Forest]
 ---
 
+# Table of Contents
+* [Business Problem](#business-problem)
+* [Potential Solution](#potential-solution)
+* [Results](#results)
+* [Conclusion](#conclusion)
+* [Resources](#resources)
+* [Data](#data)
+* [Data Cleaning and Exploration](#data-cleaning-exploration)
+  * [Missing Data](#missing-data)
+  * [Duplicate Data](#duplicate-data)
+  * [Incorrect & Irrelevant Data](#incorrect-data)
+  *   [Unique Values](#unique-values)
+  *   [Date Times](#date-times)
+  *   [Outliers](#outliers)
+* [Data Exploration and Visualizations](#data-exploration-visualizations)
+  * [Age](#age)
+  * [Gender](#gender)
+  * [Witnesses](#witnesses)
+  * [Police Report Available](#police)
+* [Split Input Variables & Oupput Variables](#split)
+* [Split Out Training & Test Sets](#split_tt)
+* [Categorical Variables](#categorical-variables)
+* [Feature Scaling](#feature-scaling)
+* [Logistic Regression](#log-reg)
+  * [Feature Selection](#feature-selection)
+  * [Model Training](#model-training)
+  * [Model Assessment](#model-assessment)
+    * [Confusion Matrix](#confusion-matrix)
+    * [Accuracy, Precision, Recall and F1 Scores](#a_p_r_f_1)
+  * [Handling Data Imbalance](#imbalance)
+    * [Optimal Threshold](#opt_thresh) 
+    * [Confusion Matrix Post Threshold](confusion-matrix_t)
+    * [Accuracy, Precision, Recall and F1 Scores Post Threshold](#a_p_r_f_2)
+  * [Model Assessment of 60:40 Split](#model-assessment_6040)
+    * [Updated Feature Selection](#opt_fs_6040)
+    * [Optimal Threshold](#opt_thresh_6040) 
+    * [Confusion Matrix Post Threshold](#confusion-matrix_6040)
+    * [Accuracy, Precision, Recall and F1 Scores Post Threshold](#a_p_r_f_6040)
+ * [Random Forest Model](#random)
+   * [Feature Selection](#feature-selection_rf)
+    * [Built-in Random Forest Importance](#built-in) 
+    * [Permutation Importance](#permutation)
+   * [Model Training](#model-training_rf)
+   * [Model Assessment](#model-assessment_rf)
+    * [Confusion Matrix Post Pre-Threshold](confusion-matrix_6040_rf)
+    * [Optimal Threshold](#opt_thresh_6040_rf) 
+    * [Confusion Matrix Post Pre-Threshold](confusion-matrix_6040_rf_2)
+    * [Accuracy, Precision, Recall and F1 Scores Pre & Post Threshold](#a_p_r_f_6040_rf) 
+ * [ROC-AUC](#roc-auc)
+    * [Receiver Operator Characteristic](#graph)
+    * [AUC Scores](#auc)
+ * [Precision Recall Curves](#pr_curves)
+    * [PR Curve Graph](#pr_graph)
+    * [PR AUC Scores](#pr_auc)
+ 
+
+
 ## Overview of Fraud on Auto Accident Insurance Claims Project
 
-### Business Problem:
+ <a id="business-problem"></a> 
+ ### Business Problem:
 The Covid-19 pandemic has caused an increase in the number of drivers on the road, resulting in a rise in auto accident claims. Insurance companies, struggling with vast numbers, are in desperate need of finding a way to manage them. They need a way to quickly determine a preliminary fraud status so their employees can focus their immediate attention on claims that are actually fraudulent and process the non-fraud ones later. 
-
+<a id="potential-solution"></a> 
 ### Potential Solution:
 Machine learning is perfect for this kind of problem.  With the use of a high performing algorithm, claims can be quickly perdicted as fraud or non-fraud, allowing employees the ability to get ahead of the backlog.
 
 This type of data science problem is considered a classification problem because it is trying to answer the question of 'how would you **classify** this claim? Fraud or non-fraud? There are many classification algorithms that can be used, but I've limited my research to the Logistic Regression model and the Random Forest for Classification model. I will test both and provide a recommendation based on which offered the best performance and accuracy.
-
+<a id="results"></a> 
 ### Results
 
 Logistic Regression and Random Forest for Classificaiton models were assessed with the insurance claims data. Feature Selection as well as threshold optimization were utilitized on both models to obtain the best performance metrics.   
@@ -78,17 +136,16 @@ Random Forest:  54.24%
 
 The Logistic Regression model returned the best Precision-Recall score.
 
-
-### Conclusion
+ <a id="conclusion"></a> 
+ ### Conclusion
 
 After assessing both models, I determined that the Logistic Regression model was the best performing model for determing fraud status.  I based this decision on the performance metrics, ROC-AUC and Precision-Recall AUC scores of both models. The performance metrics from the 60:40 split of the data was used, as an 80:20 split would have resulted in overfitting and unable to predict correctly on unforseen data.
-
 ### Background
-
+ <a id="resources"></a> 
 ### Resources
 - Data Source: [insurance_claims.csv](data/insurance_claims.csv)
 - Software: Python 3.7.6, Spyder 4.0.0
-
+ <a id="data"></a> 
 ### Data
 
 The insurance_claims.csv file contains a mixture of 1,000 fraudulent and non-fraudulent insurance claims, 247 and 753 respectively.
@@ -97,6 +154,7 @@ The data points included in the file consists of the following:
 
 ![alt text](/img/posts/fraud_prod/ss/data_points_in_file.png) 
 
+ <a id="data-cleaning-exploration"></a> 
 ## Data Cleaning and Exploration
 
 Since not all the data is needed to determine fraud status, and too much and/or incorrect data can  skew the results, the cleaning of data is imperative.  Some of the ways I cleaned the data was by handling:
@@ -106,6 +164,7 @@ Since not all the data is needed to determine fraud status, and too much and/or 
 3.  Incorrect or irrelevant data
 4.  Outliers  
 
+<a id="missing-data"></a> 
 ### 1. Missing Data
 
 There are many options when it comes to missing data.  You can choose to ignore it, replace it with something else or remove it. If an entire row or column is empty, it is better to remove the entire row or column as it offers no value.  I found the entire _c39 column was empty, so I removed it from the dataset.
@@ -132,7 +191,7 @@ data_for_model.dropna(axis = 1, inplace = True)
 ## Make sure there are none remaining.
 data_for_model.isna().any().sum() # display number of missing data
 ```
-
+<a id="duplicate-data"></a> 
 ### 2. Duplicate Data
 
 I found no duplicate data in the dataset, so nothing needed to be done.
@@ -143,6 +202,7 @@ I found no duplicate data in the dataset, so nothing needed to be done.
 ## Check for duplicates
 data_for_model.duplicated().value_counts()
 ```
+<a id="incorrect-data"></a> 
 ### 3. Incorrect & Irrelevant Data
 
 If information is not known, besides leaving it blank, another character will sometimes be entered in its place.  When I looked through the dataset, I found a '?' for some collision types, property damage and police report available columns.  Just like the missing data, you could choose to ignore it, replace it with something else or remove it.  
@@ -210,7 +270,7 @@ data_for_model['police_report_available'].value_counts()
 data_for_model.loc[(data_for_model.police_report_available == '?'),'police_report_available']='NO'
 data_for_model['police_report_available'].value_counts()
 ```
-
+<a id="unique-values"></a> 
 ### Unique values
 
 If any data is unique to a particular claim, it offers no value.  Querying the dataset, I found a few unique values and felt comfortable removing, such as policy_number and incident location.  
@@ -236,6 +296,7 @@ I also decided to remove policy_state, insured_zip, incident_date, incident_stat
 data_for_model.drop(columns=['policy_state','insured_zip','incident_date',
            'incident_state','incident_city','insured_hobbies','auto_make','auto_model','auto_year'],inplace = True)
 ```
+<a id="date-times"></a> 
 ### Date times
 
 Datetime data can prove to be very useful but needs to be in number format to work with the algorithm. There is a *toordinal* function that will convert datetime to the Gregorian ordinal of a date which is a number. In this dataset I found the policy_bind_date came in as an object, so I had to change it to a datetime data type and then convert it using the toordinal function.  
@@ -270,6 +331,7 @@ data_for_model[toordinal_col] = data_for_model[toordinal_col].map(dt.datetime.to
 
 data_for_model['policy_bind_date']
 ```
+<a id="outliers"></a> 
 ## 4. Outliers
 
 Outliers are a challenge for some algorithms, Logistic Regression being one of them. Before deciding to remove them, I wanted to see how many there were and for which features.
@@ -302,22 +364,23 @@ for column in outlier_columns:
     data_for_model.drop(outliers, inplace = True)
     
 ```
-
+<a id="data-exploration-visualizations"></a> 
 ## Data Exploration Visualizations
 
 I was curious to see information about age, gender, witnesses, and police report available for fraud claims.
-
+ <a id="age"></a>
 ### Age
 
 ![alt text](/img/posts/fraud_prod/graphs/Distribution_by_age.png)
 
 Evn thought Non-Frauds just happens to be slightly larger, both Non-Fraud and Frauds actually have a pretty similar age distribution.
-
+ <a id="gender"></a>
 ### Gender
 <p align="center">
   <img src="/img/posts/fraud_prod/graphs/status_by_gender_c3.png" />
 </p>
 The number of fraud claims by gender is close to being evenly split, although females have a hair more.  All of all auto accident claims, combined fraud and non-faud, females seem to have more auto accident claimes than males. So much for putting to rest the age old adage about females not having the best driving skills.  
+ <a id="witnesses"></a>
 
 ### Witnesses
 <p align="center">
@@ -325,7 +388,7 @@ The number of fraud claims by gender is close to being evenly split, although fe
 </p>
 
 Surprisingly, fraud claims are more apt to have witnesses, than not.  
-
+<a id="police"></a>
 ### Police Report Available
 
 <p align="center">
@@ -333,7 +396,7 @@ Surprisingly, fraud claims are more apt to have witnesses, than not.
 </p>
 
 Unsurprisingly, there are less police reports available for fraud claims than not.  
-
+<a id="split"></a>
 ## Split Input Variables & Output Variables
 
 Before splitting the data, it is also best to shuffle it in case it is in some order. Shuffling adds to the randomness of the data and increase accuracy of the model.
@@ -351,8 +414,8 @@ X = data_for_model.drop(["fraud_reported"], axis = 1)
 y = data_for_model["fraud_reported"]
 
 ```
-
-## Split out Training & Test sets
+<a id="split_tt"></a>
+## Split Out Training & Test Sets
 
 I split out the training and test splits to the defaulted 80/20 split. I may, depending on the results, resplit it to a 60/40 split so I get a larger test set. 
 
@@ -360,7 +423,7 @@ I split out the training and test splits to the defaulted 80/20 split. I may, de
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 42, stratify = y)##test_size percentage allocated to test_set, random_state = shuffling applied before split
 
 ```
-
+<a id="categorical-variables"></a>
 ## Categorical Variables
 
 Algorithms only work with numbers, so categorical variables need to be converted using One Hot Encoding.  In a nutshell, it breaks up the categorical data into its own column and populates the column values with 1 for yes and 0 for no.  For instance, if you have a gender column that is populated with the words Male and Female, you need to use OHE to convert it so it would no longer have a column for gender but would instead have one column for gender_male and one for gender_female. Each of these new columns would then have a value of 1 for yes or 0 for no accordingly.  BUT you must remove one of them due to avoid something called multicollinearity.  For this assignment, I have chosen to drop the first instance.
@@ -407,7 +470,7 @@ X_test.drop(categorical_vars, axis = 1, inplace = True)
 
 ```
 
-
+<a id="feature-scaling"></a>
 ## Feature Scaling
 
 Feature Scaling is to put all the values on the same scale.  I used standard scaling.
@@ -420,7 +483,7 @@ X_train = pd.DataFrame(scale_standared.fit_transform(X_train), columns = X_train
 X_test = pd.DataFrame(scale_standared.transform(X_test), columns = X_test.columns)
 
 ```
-
+<a id="log-reg"></a>
 ## Initialize Logistic Regression
 
 Having the optimal amount of features is paramount to the effectiveness of the model.  For the Logistic Regression model I decided to use the Recursive Feature Elimination and Cross-Validation Selection (RFECV) to eliminate the irrelevant features.
@@ -439,6 +502,7 @@ feature_selector = RFECV(clf)## default is 5 chunks but can specify other
 fit = feature_selector.fit(X_train,y_train)
 
 ```
+<a id="feature-selection"></a>
 ## Feature Selection
 
 ```
@@ -470,7 +534,7 @@ X_train_LR = X_train.loc[: , feature_selector.get_support()]
 X_test_LR = X_test.loc[: , feature_selector.get_support()]
 
 ```
-
+<a id="model-training"></a>
 ## Model Training
 
 Refit the model with the updated training and test sets.
@@ -483,16 +547,16 @@ Refit the model with the updated training and test sets.
 clf.fit(X_train_LR, y_train)
 
 ```
-
+<a id="model-assessment"></a>
 ## Model Assessment
-
+<a id="confusion-matrix"></a>
 **Confusion Matrix**
 
 Generating a confusion matrix, we can easily see that the data is imbalanced, meaning one of the classes has a larger amount than the other(s).  In this case it is the True Non-Frauds (non-frauds predicted correctly as non-frauds), 105 to 28 True Frauds (frauds predicted correctly as frauds).
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_before.png)
 
-
+<a id="a_p_r_f_1"></a>
 **Accuracy, Precision, Recall and F1 scores**
 
 Even though the data is imbalaned and needs to be addressed, I ran the Accuracy, Precision, Recall and F1 scores so we can compare them to what they are after making adjustments for the imbalancing. (See below)
@@ -520,9 +584,9 @@ print("F1 Score: {0:.2%}".format(f1_score_r))
  ```
 
 ![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_1.png)
-
+<a id="imbalance"></a>
  ## Handling Data Imbalance
- 
+ <a id="opt_thresh"></a>
   **Optimal Threshold**
   
 One way to handle the imbalancing of data is to adjust the threshold. The threshold is the line between saying a claim is fraud or non-fraud. To go deeper, when the Logisitic Regression model returns a probability score for a claim (which it does for all in the test set), it looks at the threshold amount and asks if the that probability score is above or below this line.  If it is above, it will say it is probabily fraud. If it is below, it will say it is probably non-fraud. This is why adjusting the threshold will sometimes make the data more balanced.  
@@ -568,12 +632,12 @@ The optimal threshold is 0.13.
  ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_.png)
   
 The default threshold is 0.5, so adjusting it to 0.13 may give us better results.  
-
+<a id="confusion-matrix_t"></a>
 **Confusion Matrix post threshold**
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_AFTER.png)
 
-
+<a id="a_p_r_f_2"></a>
 **The Accuracy, Precision, Recall and F1 scores post threshold**
 
 BEFORE
@@ -586,12 +650,13 @@ AFTER
 
 Changing the threshold did not result in better performance numbers, they actually stayed the same.  The reason for this is may be due to the the model having a small test set, I initially did a 80:20 split.  I resplit the dataset with a 60:40 split to see if the model predicted better on the larger test set.  
 
+<a id="model-assessment_6040"></a>
 ## Model Assessment with larger test set, 60:40 Split
 
 ```
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42, stratify = y)
 ```
-
+<a id="opt_fs_6040"></a>
 After the new split, besides re-encoding categorical variables and re-scalling the features, I reran feature selection with this larger training set and the optimal features number went from 3 to 28. The splitting of the data to make a larger test set, helped with increasing the number of optimal features, which helps with the overfitting concern.
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_update.png)
@@ -601,15 +666,17 @@ The list of the 28 features.
 ![alt text](/img/posts/fraud_prod/ss/LR_feature_selection_2.png)
 
 After updating the test and training sets with the 28 optimal features. I refitted and retrained the model and updated the threshold (0.31), hoping for better performance results.
+<a id="opt_thresh_6040"></a>
 
 --**Updated optimal threshold**--
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_update_larger_testset.png)
+<a id="confusion-matrix_6040"></a>
 
 --**Updated confusion matrix**--
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_AFTER_.png)
-
+<a id="a_p_r_f_6040"></a>
 --**Updated performance metrics**--
   
 BEFORE
@@ -661,7 +728,7 @@ Before the theshold adjustment and test set size increase, the f1 score score wa
 
 Since using a Logistic Regression model did not provide great results, the next model I tried was the Random Forest as they tend to be highly accurate. 
 
-
+<a id="random"></a>
 ########################################################
 
 ## Random Forest model
@@ -676,11 +743,11 @@ rfc = RandomForestClassifier(random_state = 42, n_estimators = 2000)
 rfc.fit(X_train, y_train)
 
 ```
-
+<a id="feature-selection_rf"></a>
 ### Feature Selection 
 
 There are few methods that can be used for feature selection with a Random Forest model.  I tried both the the built-in method which utilizes the Gini importance (mean decrease impurity, the more it decreases, the more important the feature) and the Permutation Importance which calculates what effective the feature has on the model accuracy by randomly re-ordering it. 
-
+<a id="built-in"></a>
 **Built-in Random Forest Importance** 
 
 ```
@@ -702,7 +769,7 @@ Here are the features:
 ![alt text](/img/posts/fraud_prod/ss/rf_features_2.png)
 
 
-
+<a id="permutation"></a>
 **Permutation Importance**
 
 ```
@@ -730,7 +797,7 @@ Here are the resulting 16 features:
 
 I decided to use the Permutation Importance feature selection because, although more computing intensive to calculate, it, unlike the built-in feature importance, is not biased towards high-cardinality categorical variables and is more reliable in its results. 
 
-
+<a id="model-training_rf"></a>
 ## Model Training
 
 The resulting Permutation Importance 16 features were then refitted to the model and the training and test sets updated.
@@ -756,25 +823,26 @@ X_test_RF = X_test.loc[: , rf_perm_columns]
 rfc.fit(X_train_RF, y_train)
 
 ```
+<a id="model-assessment_rf"></a>
 ## Model Assessment
-
+<a id="confusion-matrix_6040_rf"></a>
 **Confusion Matrix**
 
 ![alt text](/img/posts/fraud_prod/graphs/rf_confusion_matrix_before_threshold.png)
 
-
+<a id="opt_thresh_6040_rf"></a>
 --**Updated optimal threshold**--
 
 ![alt text](/img/posts/fraud_prod/graphs/RF_optimal_threshold.png)
 
 The default threshold is 0.5, so decreasing it to 0.31 may give us better results.
 
-
+<a id="confusion-matrix_6040_rf_2"></a>
 **Confusion Matrix Post Threshold**
 
 ![alt text](/img/posts/fraud_prod/graphs/rf_confusion_after_threshold.png)
 
-
+<a id="a_p_r_f_6040_rf"></a>
 **Accuracy, Precision, Recall and F1 scores**
 
 BEFORE
@@ -785,7 +853,7 @@ AFTER
 
 ![alt text](/img/posts/fraud_prod/ss/rf_a_p_r_2.png)
 
-
+<a id="roc-auc"></a>
 ## ROC-AUC
 
 ```
@@ -807,10 +875,11 @@ plt.title('Receiver Operating Characteristic')
 plt.show()
 
 ```
+<a id="graph"></a>
+
 ![alt text](/img/posts/fraud_prod/graphs/AUC-ROC_graph.png)
 
 ```
-
 # auc scores
 auc_log_reg = roc_auc_score(y_test_numbers, , y_pred_prob)
 auc_random_forest = roc_auc_score(y_test_t, , y_pred_prob_rf)
@@ -820,8 +889,9 @@ print(f"\nAUC Scores\n{line}")
 print("Logistic Regression: {0:.2%}".format(auc_log_reg))
 print("Random Forest: {0:.2%}".format(auc_random_forest))
 ```
+<a id="auc"></a>
 ![alt text](/img/posts/fraud_prod/ss/AUC-ROC_scores.png)
-
+<a id="pr_curves"></a>
 ## Precision-Recall Curves
 
 ```
@@ -842,7 +912,7 @@ plt.legend()
 plt.show()
 
 ```
-
+<a id="pr_graph"></a>
 ![alt text](/img/posts/fraud_prod/graphs/precision_recall_curves.png)
 
 ```
@@ -857,7 +927,7 @@ print(f"\nPrecision Recall AUC Scores\n{line}")
 print("Logistic Regression: {0:.2%}".format(auc_log_reg_pr))
 print("Random Forest: {0:.2%}".format(auc_random_forest_pr))
 ```
-
+<a id="pr_auc"></a>
 ![alt text](/img/posts/fraud_prod/ss/precision_recall_auc.png)
 
 
