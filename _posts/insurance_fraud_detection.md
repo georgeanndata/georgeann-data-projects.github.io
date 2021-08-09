@@ -21,7 +21,7 @@ Logistic Regression and Random Forest for Classificaiton models were assessed wi
 
 The performance metrics are as follows:
 
-![alt text](/img/posts/fraud_prod/ss/perform_m_graph.png)
+![alt text](/img/posts/fraud_prod/ss/perform_m_graph_.png)
 
 **Accuracy Score** 
 
@@ -64,14 +64,24 @@ The Logistic Regression model returned the best F1 score.
 
 ROC-AUC is the measure across all possible thresholds.
 
-Logistic Regression: **77.54%**<br>
-Random Forest:  70.34%
+Logistic Regression: **72.88%**<br>
+Random Forest:  66.27%
 
 The Logistic Regression model returned the best ROC-AUC score.
 
+**Precision-Recall AUC**
+
+Precision-Recall AUC is the measure across all possible thresholds.
+
+Logistic Regression: **62.69%**<br>
+Random Forest:  54.24%
+
+The Logistic Regression model returned the best Precision-Recall score.
+
+
 ### Conclusion
 
-After assessing both models, I determined that the Logistic Regression model was the best performing model for determing fraud status.  I based this decision on the performance metrics and ROC-AUC of both models.
+After assessing both models, I determined that the Logistic Regression model was the best performing model for determing fraud status.  I based this decision on the performance metrics, ROC-AUC and Precision-Recall AUC scores of both models. I used the scores from from a 60:40 split of the data, as an 80:20 split woulc have resulted in overfitting and not have predicted correctly on unseen data.
 
 ### Background
 
