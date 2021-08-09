@@ -824,6 +824,8 @@ print("Random Forest: {0:.2%}".format(auc_random_forest))
 
 ## Precision-Recall Curves
 
+![alt text](/img/posts/fraud_prod/graphs/precision_recall_curves.png)
+
 ```
 from sklearn.metrics import precision_recall_curve
 
@@ -841,25 +843,25 @@ plt.legend()
 # show the plot
 plt.show()
 
+```
 
-# auc scores
+![alt text](/img/posts/fraud_prod/graphs/precision_recall_curves.png)
+
+```
+# Precision-Rcall Auc scores
 from sklearn.metrics import auc
 
 auc_log_reg_pr = auc(recall, precision)
 auc_random_forest_pr = auc(recall_rf, precision_rf)
 
 line = "----" * 10
-print(f"\nPR AUC Scores\n{line}")
+print(f"\nPrecision Recall AUC Scores\n{line}")
 print("Logistic Regression: {0:.2%}".format(auc_log_reg_pr))
 print("Random Forest: {0:.2%}".format(auc_random_forest_pr))
-
 ```
 
-![alt text](/img/posts/fraud_prod/graphs/precision_recall_curves.png)
+![alt text](/img/posts/fraud_prod/ss/precision_recall_auc.png)
 
-
-
-Between the Logistic Regression model and Random Forest models, Logistic Regression is the better of the two.
 
 
 
