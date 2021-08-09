@@ -21,7 +21,7 @@ Logistic Regression and Random Forest for Classificaiton models were assessed wi
 
 The performance metrics are as follows:
 
-![alt text](/img/posts/fraud_prod/ss/perform_m_graph_.png)
+![alt text](/img/posts/fraud_prod/ss/perform_m_graph.png)
 
 **Accuracy Score** 
 
@@ -823,8 +823,6 @@ print("Random Forest: {0:.2%}".format(auc_random_forest))
 ![alt text](/img/posts/fraud_prod/ss/AUC-ROC_scores.png)
 
 ## Precision-Recall Curves
-
-![alt text](/img/posts/fraud_prod/graphs/precision_recall_curves.png)
 
 ```
 from sklearn.metrics import precision_recall_curve
