@@ -925,7 +925,7 @@ plt.show()
 ![alt text](/img/posts/fraud_prod/graphs/precision_recall_curves.png)
 
 ```
-# Precision-Rcall Auc scores
+# Precision-Recall Auc scores
 from sklearn.metrics import auc
 
 auc_log_reg_pr = auc(recall, precision)
