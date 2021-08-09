@@ -51,7 +51,7 @@ tags: [fraud detection, Logistic Regression, Random Forest]
    * [Model Assessment](#model-assessment_rf)
     * [Confusion Matrix Post Pre-Threshold](#confusion-matrix_6040_rf)
     * [Optimal Threshold](#opt_thresh_6040_rf) 
-    * [Confusion Matrix Post Pre-Threshold](#gconfusion-matrix_6040_rf_2)
+    * [Confusion Matrix Post Pre-Threshold](#confusion-matrix_6040_rf_2)
     * [Accuracy, Precision, Recall and F1 Scores Pre & Post Threshold](#a_p_r_f_6040_rf) 
  * [ROC-AUC](#roc-auc)
     * [Receiver Operator Characteristic](#graph)
@@ -843,6 +843,7 @@ rfc.fit(X_train_RF, y_train)
 The default threshold is 0.5, so decreasing it to 0.31 may give us better results.
 
 <a id="confusion-matrix_6040_rf_2"></a>
+
 **Confusion Matrix Post Threshold**
 
 ![alt text](/img/posts/fraud_prod/graphs/rf_confusion_after_threshold.png)
