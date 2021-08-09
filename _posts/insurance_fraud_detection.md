@@ -139,7 +139,7 @@ The Logistic Regression model returned the best Precision-Recall score.
  <a id="conclusion"></a> 
  ### Conclusion
 
-After assessing both models, I determined that the Logistic Regression model was the best performing model for determing fraud status.  I based this decision on the performance metrics, ROC-AUC and Precision-Recall AUC scores of both models. The performance metrics from the 60:40 split of the data was used, as an 80:20 split would have resulted in overfitting and unable to predict correctly on unforseen data.
+After assessing both models, I determined that the Logistic Regression model was the best performing model for determing fraud status.  I based this decision on the performance metrics, ROC-AUC and Precision-Recall AUC scores of both models. The performance metrics from the 60:40 split of the data was used, as an 80:20 split would have resulted in overfitting and the model being unable to predict correctly on unforseen data.
 ### Background
  <a id="resources"></a> 
 ### Resources
