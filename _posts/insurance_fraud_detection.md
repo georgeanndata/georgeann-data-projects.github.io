@@ -49,7 +49,7 @@ tags: [fraud detection, Logistic Regression, Random Forest]
     * [Permutation Importance](#permutation)
    * [Model Training](#model-training_rf)
    * [Model Assessment](#model-assessment_rf)
-    * [Confusion Matrix Post Pre-Threshold](confusion-matrix_6040_rf)
+    * [Confusion Matrix Post Pre-Threshold](#confusion-matrix_6040_rf)
     * [Optimal Threshold](#opt_thresh_6040_rf) 
     * [Confusion Matrix Post Pre-Threshold](confusion-matrix_6040_rf_2)
     * [Accuracy, Precision, Recall and F1 Scores Pre & Post Threshold](#a_p_r_f_6040_rf) 
@@ -677,7 +677,9 @@ After updating the test and training sets with the 28 optimal features. I refitt
 --**Updated confusion matrix**--
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_AFTER_.png)
+
 <a id="a_p_r_f_6040"></a>
+
 --**Updated performance metrics**--
   
 BEFORE
