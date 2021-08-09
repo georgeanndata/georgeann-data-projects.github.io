@@ -36,7 +36,7 @@ tags: [fraud detection, Logistic Regression, Random Forest]
     * [Accuracy, Precision, Recall and F1 Scores](#a_p_r_f_1)
   * [Handling Data Imbalance](#imbalance)
     * [Optimal Threshold](#opt_thresh) 
-    * [Confusion Matrix Post Threshold](confusion-matrix_t)
+    * [Confusion Matrix Post Threshold](#confusion-matrix_t)
     * [Accuracy, Precision, Recall and F1 Scores Post Threshold](#a_p_r_f_2)
   * [Model Assessment of 60:40 Split](#model-assessment_6040)
     * [Updated Feature Selection](#opt_fs_6040)
@@ -51,7 +51,7 @@ tags: [fraud detection, Logistic Regression, Random Forest]
    * [Model Assessment](#model-assessment_rf)
     * [Confusion Matrix Post Pre-Threshold](#confusion-matrix_6040_rf)
     * [Optimal Threshold](#opt_thresh_6040_rf) 
-    * [Confusion Matrix Post Pre-Threshold](confusion-matrix_6040_rf_2)
+    * [Confusion Matrix Post Pre-Threshold](#gconfusion-matrix_6040_rf_2)
     * [Accuracy, Precision, Recall and F1 Scores Pre & Post Threshold](#a_p_r_f_6040_rf) 
  * [ROC-AUC](#roc-auc)
     * [Receiver Operator Characteristic](#graph)
@@ -667,11 +667,13 @@ The list of the 28 features.
 ![alt text](/img/posts/fraud_prod/ss/LR_feature_selection_2.png)
 
 After updating the test and training sets with the 28 optimal features. I refitted and retrained the model and updated the threshold (0.31), hoping for better performance results.
+
 <a id="opt_thresh_6040"></a>
 
 --**Updated optimal threshold**--
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_update_larger_testset.png)
+
 <a id="confusion-matrix_6040"></a>
 
 --**Updated confusion matrix**--
@@ -882,6 +884,7 @@ plt.show()
 
 ![alt text](/img/posts/fraud_prod/graphs/AUC-ROC_graph.png)
 
+<a id="auc"></a>
 ```
 # auc scores
 auc_log_reg = roc_auc_score(y_test_numbers, , y_pred_prob)
@@ -892,7 +895,7 @@ print(f"\nAUC Scores\n{line}")
 print("Logistic Regression: {0:.2%}".format(auc_log_reg))
 print("Random Forest: {0:.2%}".format(auc_random_forest))
 ```
-<a id="auc"></a>
+
 ![alt text](/img/posts/fraud_prod/ss/AUC-ROC_scores.png)
 
 <a id="pr_curves"></a>
