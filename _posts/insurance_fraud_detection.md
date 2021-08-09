@@ -894,7 +894,9 @@ print("Random Forest: {0:.2%}".format(auc_random_forest))
 ```
 <a id="auc"></a>
 ![alt text](/img/posts/fraud_prod/ss/AUC-ROC_scores.png)
+
 <a id="pr_curves"></a>
+
 ## Precision-Recall Curves
 
 ```
@@ -931,6 +933,7 @@ print("Logistic Regression: {0:.2%}".format(auc_log_reg_pr))
 print("Random Forest: {0:.2%}".format(auc_random_forest_pr))
 ```
 <a id="pr_auc"></a>
+
 ![alt text](/img/posts/fraud_prod/ss/precision_recall_auc.png)
 
 
