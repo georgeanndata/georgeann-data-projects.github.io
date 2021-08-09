@@ -638,6 +638,7 @@ The default threshold is 0.5, so adjusting it to 0.13 may give us better results
 ![alt text](/img/posts/fraud_prod/graphs/LR_con_matrix_AFTER.png)
 
 <a id="a_p_r_f_2"></a>
+
 **The Accuracy, Precision, Recall and F1 scores post threshold**
 
 BEFORE
