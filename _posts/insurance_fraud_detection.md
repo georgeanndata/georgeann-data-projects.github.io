@@ -776,15 +776,15 @@ AFTER
 ![alt text](/img/posts/fraud_prod/ss/rf_a_p_r_2.png)
 
 
-## ROC and AUC
+## ROC-AUC
 
 ```
 from sklearn.metrics import roc_curve
 from sklearn.metrics import roc_auc_score
 
 
-fpr_lr, tpr_lr, thresholds_lr = roc_curve(y_test_numbers, clf.predict_proba(X_test_LR)[:,1])
-fpr_rf, tpr_rf, thresholds_rf = roc_curve(y_test_t, rfc.predict_proba(X_test_RF)[:,1])
+fpr_lr, tpr_lr, thresholds_lr = roc_curve(y_test_numbers, , y_pred_prob)
+fpr_rf, tpr_rf, thresholds_rf = roc_curve(y_test_t, , y_pred_prob_rf)
 
 ##plot ROC curves
 plt.plot([0,1],[0,1], 'k--')
@@ -802,8 +802,8 @@ plt.show()
 ```
 
 # auc scores
-auc_log_reg = roc_auc_score(y_test_numbers, clf.predict_proba(X_test_LR)[:,1])
-auc_random_forest = roc_auc_score(y_test_t, rfc.predict_proba(X_test_RF)[:,1])
+auc_log_reg = roc_auc_score(y_test_numbers, , y_pred_prob)
+auc_random_forest = roc_auc_score(y_test_t, , y_pred_prob_rf)
 
 line = "----" * 10
 print(f"\nAUC Scores\n{line}")
@@ -811,6 +811,43 @@ print("Logistic Regression: {0:.2%}".format(auc_log_reg))
 print("Random Forest: {0:.2%}".format(auc_random_forest))
 ```
 ![alt text](/img/posts/fraud_prod/ss/AUC-ROC_scores.png)
+
+## Precision-Recall Curves
+
+```
+from sklearn.metrics import precision_recall_curve
+
+precision, recall, _ = precision_recall_curve(y_test_numbers,  y_pred_class_opt_thresh)
+precision_rf, recall_rf, _ = precision_recall_curve(y_test_t,  y_pred_class_opt_thresh_rf)
+# plot the model precision-recall curve
+plt.plot(recall, precision, marker='.', label='Logistic Regression', linewidth=4)
+plt.plot(recall_rf, precision_rf, linestyle='--', label='Random Forest', linewidth=4)
+# axis labels
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.title('Precision-Recall Curves')
+# show the legend
+plt.legend()
+# show the plot
+plt.show()
+
+
+# auc scores
+from sklearn.metrics import auc
+
+auc_log_reg_pr = auc(recall, precision)
+auc_random_forest_pr = auc(recall_rf, precision_rf)
+
+line = "----" * 10
+print(f"\nPR AUC Scores\n{line}")
+print("Logistic Regression: {0:.2%}".format(auc_log_reg_pr))
+print("Random Forest: {0:.2%}".format(auc_random_forest_pr))
+
+```
+
+![alt text](/img/posts/fraud_prod/ss/precision_recall_curves.png)
+
+
 
 Between the Logistic Regression model and Random Forest models, Logistic Regression is the better of the two.
 
