@@ -66,7 +66,7 @@ tags: [fraud detection, Logistic Regression, Random Forest]
 
  <a id="business-problem"></a> 
  ### Business Problem:
-The Covid-19 pandemic has caused an increase in the number of drivers on the road, resulting in a rise in auto accident claims. Insurance companies, struggling with vast numbers, are in desperate need of finding a way to manage them. They need a way to quickly determine a preliminary fraud status so their employees can focus their immediate attention on claims that are actually fraudulent and process the non-fraud ones later. 
+The Covid-19 pandemic has caused an increase in the number of drivers on the road, resulting in a rise of auto accident claims. Insurance companies, struggling with vast numbers, are in desperate need of finding a way to manage them. They need a way to quickly determine a preliminary fraud status so their employees can focus their immediate attention on claims that are actually fraudulent and process the non-fraud ones later. 
 <a id="potential-solution"></a> 
 ### Potential Solution:
 Machine learning is perfect for this kind of problem.  With the use of a high performing algorithm, claims can be quickly perdicted as fraud or non-fraud, allowing employees the ability to get ahead of the backlog.
@@ -129,7 +129,7 @@ The Logistic Regression model returned the best ROC-AUC score.
 
 **Precision-Recall AUC**
 
-Precision-Recall AUC is the measure across all possible thresholds.
+Precision-Recall AUC is relationship between Precision and Recall across different thresholds and is best used when data is imbalanced, which this dataset was.
 
 Logistic Regression: **62.69%**<br>
 Random Forest:  54.24%
