@@ -120,7 +120,7 @@ The Logistic Regression model returned the best F1 score.
 
 **ROC-AUC**
 
-ROC-AUC is the measure across all possible thresholds.
+ROC-AUC score is how well the model did at predicting frauds as frauds and non-frauds as non-frauds. 
 
 Logistic Regression: **72.88%**<br>
 Random Forest:  66.27%
@@ -139,7 +139,7 @@ The Logistic Regression model returned the best Precision-Recall score.
  <a id="conclusion"></a> 
  ### Conclusion
 
-After assessing both models, I determined that the Logistic Regression model was the best performing model for determing fraud status.  I based this decision on the performance metrics, ROC-AUC and Precision-Recall AUC scores of both models. The performance metrics from the 60:40 split of the data was used, as an 80:20 split would have resulted in overfitting and the model being unable to predict correctly on unforseen data.
+After assessing both models, I determined that the Logistic Regression model was the best performing model for determing fraud status.  I based this decision on the performance metrics, ROC-AUC and Precision-Recall AUC scores of both models. The performance metrics from the 60:40 split of the data was used, as I found an 80:20 split would have resulted in overfitting and the model being unable to predict correctly on unforseen data.
 ### Background
  <a id="resources"></a> 
 ### Resources
@@ -862,6 +862,8 @@ AFTER
 <a id="roc-auc"></a>
 ## ROC-AUC
 
+The ROC-AUC shows how well the model does at distinguishing between frauds and non-frauds. 
+
 ```
 from sklearn.metrics import roc_curve
 from sklearn.metrics import roc_auc_score
@@ -884,6 +886,8 @@ plt.show()
 <a id="graph"></a>
 
 ![alt text](/img/posts/fraud_prod/graphs/AUC-ROC_graph.png)
+
+The Area Under the Curve (AUC) score is better when higher.  It means that the model is better at predicting frauds as frauds and non-frauds as non-frauds.  
 
 <a id="auc"></a>
 ```
