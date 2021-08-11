@@ -588,6 +588,7 @@ print("F1 Score: {0:.2%}".format(f1_score_r))
 
  ## Handling Data Imbalance
  <a id="opt_thresh"></a>
+ 
   **Optimal Threshold**
   
 One way to handle the imbalancing of data is to adjust the threshold. The threshold is the line between saying a claim is fraud or non-fraud. To go deeper, when the Logisitic Regression model returns a probability score for a claim (which it does for all in the test set), it looks at the threshold amount and asks if the that probability score is above or below this line.  If it is above, it will say it is probabily fraud. If it is below, it will say it is probably non-fraud. This is why adjusting the threshold will sometimes make the data more balanced.  
