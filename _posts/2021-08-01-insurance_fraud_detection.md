@@ -585,6 +585,7 @@ print("F1 Score: {0:.2%}".format(f1_score_r))
 
 ![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_1.png)
 <a id="imbalance"></a>
+
  ## Handling Data Imbalance
  <a id="opt_thresh"></a>
   **Optimal Threshold**
