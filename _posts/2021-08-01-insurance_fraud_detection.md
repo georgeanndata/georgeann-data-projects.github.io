@@ -244,7 +244,7 @@ data_for_model['collision_type'].value_counts()
 
 For property damage, I didn't see any patterns to possibly explain why there may have been '?' entered so I decided to replace all '?' to NO.  
 
-![alt text](../img/posts/fraud_prod/ss/property_type.png)
+![alt text](/img/posts/fraud_prod/ss/property_type.png)
 
 ```
 # 2.  'property_damage'
