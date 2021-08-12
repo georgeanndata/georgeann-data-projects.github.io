@@ -9,7 +9,7 @@ plugins:
 #-------------------------------
 # General Site Settings
 title: George-Ann Sauer
-description: "Hi I'm George-Ann, and I'm a Data Scientist.  My portfolio focuses on interesting projects I've recently undertaken, with a strong emphasis on business impact. Please visit my Github & LinkedIn pages (or download my Resume) by using the links below!"
+description: "Hi I'm George-Ann, and I'm a Data Scientist.  My portfolio focuses on interesting projects I've recently undertaken, with a strong emphasis on business impact. Please visit my Github & LinkedIn pages by using the links below!"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
@@ -17,7 +17,7 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 # About Section
 subtitle: Data Science <span style="color:#f58506"> Portfolio </span>
 location: "New York, NY"
-resume_url: /docs/resume.docx
+#resume_url: /docs/resume.docx
 avatar_image: /img/posts/profile_picture.jpg
 
 #-------------------------------
