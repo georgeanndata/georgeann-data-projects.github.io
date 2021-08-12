@@ -67,6 +67,7 @@ tags: [fraud detection, Logistic Regression, Random Forest]
  <a id="business-problem"></a> 
  
  ### Business Problem
+ 
 The Covid-19 pandemic has caused an increase in the number of drivers on the road, resulting in a rise of auto accident claims. Insurance companies, struggling with vast numbers, are in desperate need of finding a way to manage them. They need a way to quickly determine a preliminary fraud status so their employees can focus their immediate attention on claims that are actually fraudulent and process the non-fraud ones later. 
 <a id="potential-solution"></a> 
 ### Potential Solution
