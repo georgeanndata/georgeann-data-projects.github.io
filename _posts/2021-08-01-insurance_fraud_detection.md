@@ -148,8 +148,9 @@ After assessing both models, I determined that the Logistic Regression model was
 ### Resources
 - Data Source: [insurance_claims.csv](data/insurance_claims.csv)
 - Software: Python 3.7.6, Spyder 4.0.0
- <a id="data"></a> 
  
+ <a id="data"></a> 
+
 ### Data
 
 The insurance_claims.csv file contains a mixture of 1,000 fraudulent and non-fraudulent insurance claims, 247 and 753 respectively.
