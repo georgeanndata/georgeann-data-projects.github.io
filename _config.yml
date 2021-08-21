@@ -24,7 +24,7 @@ avatar_image: /img/posts/profile_picture.jpg
 # Contact links
 linkedln: "https://www.linkedin.com/in/gasauer/" # Add your linkedln handle
 github: "https://github.com/georgeanndata"  # Add your github handle
-Tableau Dashboard: https://public.tableau.com/app/profile/george.ann.sauer
+tableau: https://public.tableau.com/app/profile/george.ann.sauer
 
 paginate: 6
 paginate_path: "/page/:num"
