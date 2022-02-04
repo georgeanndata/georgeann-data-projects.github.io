@@ -378,7 +378,7 @@ I was curious to see information about age, gender, witnesses, and police report
 
 ![alt text](/img/posts/fraud_prod/graphs/Distribution_by_age.png)
 
-Evn though Non-Frauds just happens to be slightly larger, both Non-Fraud and Frauds actually have a pretty similar age distribution.
+Even though Non-Frauds just happens to be slightly larger, both Non-Fraud and Frauds actually have a pretty similar age distribution.
  <a id="gender"></a>
 ### Gender
 <p align="center">
