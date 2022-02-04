@@ -378,13 +378,13 @@ I was curious to see information about age, gender, witnesses, and police report
 
 ![alt text](/img/posts/fraud_prod/graphs/Distribution_by_age.png)
 
-Evn thought Non-Frauds just happens to be slightly larger, both Non-Fraud and Frauds actually have a pretty similar age distribution.
+Evn though Non-Frauds just happens to be slightly larger, both Non-Fraud and Frauds actually have a pretty similar age distribution.
  <a id="gender"></a>
 ### Gender
 <p align="center">
   <img src="/img/posts/fraud_prod/graphs/status_by_gender_c3.png" />
 </p>
-The number of fraud claims by gender is close to being evenly split, although females have a hair more.  All of all auto accident claims, combined fraud and non-faud, females seem to have more auto accident claimes than males. So much for putting to rest the age old adage about females not having the best driving skills.  
+The number of fraud claims by gender is close to being evenly split, although females have a hair more.  Of all auto accident claims, combined fraud and non-faud, females seem to have more auto accident claimes than males. So much for putting to rest the age old adage about females not having the best driving skills.  
  <a id="witnesses"></a>
 
 ### Witnesses
@@ -404,7 +404,7 @@ Unsurprisingly, there are less police reports available for fraud claims than no
 <a id="split"></a>
 ## Split Input Variables & Output Variables
 
-Before splitting the data, it is also best to shuffle it in case it is in some order. Shuffling adds to the randomness of the data and increase accuracy of the model.
+Before splitting the data, it is also best to shuffle it in case it is in some order. Shuffling adds to the randomness of the data and increase the accuracy of the model.
 
 ```
 # Shuffle data
@@ -431,7 +431,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, rando
 <a id="categorical-variables"></a>
 ## Categorical Variables
 
-Algorithms only work with numbers, so categorical variables need to be converted using One Hot Encoding.  In a nutshell, it breaks up the categorical data into its own column and populates the column values with 1 for yes and 0 for no.  For instance, if you have a gender column that is populated with the words Male and Female, you need to use OHE to convert it so it would no longer have a column for gender but would instead have one column for gender_male and one for gender_female. Each of these new columns would then have a value of 1 for yes or 0 for no accordingly.  BUT you must remove one of them due to avoid something called multicollinearity.  For this assignment, I have chosen to drop the first instance.
+Algorithms only work with numbers, so categorical variables need to be converted using One Hot Encoding.  In a nutshell, it breaks up the categorical data into its own column and populates the column values with 1 for yes and 0 for no.  For instance, if you have a gender column that is populated with the words Male and Female, you need to use OHE to convert it so it would no longer have a column for gender but would instead have one column for gender_male and one for gender_female. Each of these new columns would then have a value of 1 for yes or 0 for no accordingly.  BUT you must remove one of them due to avoid something called multicollinearity.  For this project, I have chosen to drop the first instance.
 
 ```
 # 5. Categorical Variables
@@ -596,7 +596,7 @@ print("F1 Score: {0:.2%}".format(f1_score_r))
  
   **Optimal Threshold**
   
-One way to handle the imbalancing of data is to adjust the threshold. The threshold is the line between saying a claim is fraud or non-fraud. To go deeper, when the Logisitic Regression model returns a probability score for a claim (which it does for all in the test set), it looks at the threshold amount and asks if the that probability score is above or below this line.  If it is above, it will say it is probabily fraud. If it is below, it will say it is probably non-fraud. This is why adjusting the threshold will sometimes make the data more balanced.  
+One way to handle the imbalancing of data is to adjust the threshold. The threshold is the line between saying a claim is fraud or non-fraud. To explain further, when the Logisitic Regression model returns a probability score for a claim (which it does for all in the test set), it looks at the threshold amount and asks if the that probability score is above or below this line.  If it is above, it will say it is probabily fraud. If it is below, it will say it is probably non-fraud. This is why adjusting the threshold will sometimes make the data more balanced.  
   
    ```
 #####################################################
@@ -656,7 +656,7 @@ AFTER
 
 ![alt text](/img/posts/fraud_prod/ss/a_p_r_scores_2.png)
 
-Changing the threshold did not result in better performance numbers, they actually stayed the same.  The reason for this is may be due to the the model having a small test set, I initially did a 80:20 split.  I resplit the dataset with a 60:40 split to see if the model predicted better on the larger test set.  
+Changing the threshold did not result in better performance numbers, they actually stayed the same.  The reason for this may be due to the the model having a small test set (I initially did a 80:20 split).  I resplit the dataset with a 60:40 split to see if the model predicted better on the larger test set.  
 
 <a id="model-assessment_6040"></a>
 ## Model Assessment with larger test set, 60:40 Split
@@ -665,7 +665,7 @@ Changing the threshold did not result in better performance numbers, they actual
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42, stratify = y)
 ```
 <a id="opt_fs_6040"></a>
-After the new split, besides re-encoding categorical variables and re-scalling the features, I reran feature selection with this larger training set and the optimal features number went from 3 to 28. The splitting of the data to make a larger test set, helped with increasing the number of optimal features, which helps with the overfitting concern.
+After the new split, besides re-encoding categorical variables and re-scalling the features, I re-ran feature selection with this larger training set and the optimal features number went from 3 to 28. The splitting of the data to make a larger test set helped with increasing the number of optimal features, which helped with the overfitting concern.
 
 ![alt text](/img/posts/fraud_prod/graphs/LR_optimal_threshold_update.png)
 
@@ -720,7 +720,7 @@ Before the theshold adjustment and test set size increase, the prcecision score 
 
 **Recall**  
 
-A recall score is the converse of precision and if you add to the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). In other words, of all the claims the model were actually frauds (correctly predicted as frauds and incorrectly predicted as non-frauds when they were actually frauds), what is the percentage that were correctly predicted as fraud (true frauds).  
+A recall score is the converse of precision and if you add the two together they equal (or should) 100%. The recall score is how well the model did in labeling fraud claims as fraud.  Again, using this project as an example, you would take the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP))) and divide it by the total number of times the model CORRECTLY predicted a fraud was a fraud (**True Positive** (TP)) + the total number of time the model INCORRECTLY predicted it was a non-fraud when it was actually a fraud (**False Negative** (FN)). In other words, of all the claims the model were actually frauds (correctly predicted as frauds and incorrectly predicted as non-frauds when they were actually frauds), what is the percentage that were correctly predicted as fraud (true frauds).  
 
 <p align="center">
   <img src="/img/posts/fraud_prod/ss/recall_calc.png"  />
